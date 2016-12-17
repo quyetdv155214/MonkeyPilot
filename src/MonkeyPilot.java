@@ -89,7 +89,7 @@ public class MonkeyPilot extends Frame implements Runnable {
     public void run(){
         while (true){
             try {
-                Thread.sleep(17);
+                Thread.sleep(10);
                 this.repaint();
                 planecontroller.run();
             } catch (InterruptedException e) {
