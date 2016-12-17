@@ -19,13 +19,13 @@ public class Planecontroller extends Controller {
         return new Planecontroller(new Model(x, y, width, height), new View(Utils.loadimage("resources/plane2.png")));
     }
 
-    public static int deg = 0;
+    public static int deg = 89;
 
     public void run() {
         double x;
         double y;
 
-        deg++;
+
 
         double raDeg = Math.toRadians(deg);
         x = 2 * Math.sin(raDeg);

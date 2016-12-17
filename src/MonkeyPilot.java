@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 public class MonkeyPilot extends Frame implements Runnable {
     Image background;
     Image star;
+    boolean turn = false;
+
     BufferedImage backbuffer;
     Planecontroller planecontroller;
     public MonkeyPilot(){
@@ -60,18 +62,20 @@ public class MonkeyPilot extends Frame implements Runnable {
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
+                turn =true;
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_SPACE)
+                if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    Planecontroller.deg++;
                     planecontroller.run();
-
+                }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
+                turn =false;
 
             }
         });
@@ -93,7 +97,9 @@ public class MonkeyPilot extends Frame implements Runnable {
             try {
                 Thread.sleep(10);
                 this.repaint();
-
+                if(!turn){
+                    planecontroller.run();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
