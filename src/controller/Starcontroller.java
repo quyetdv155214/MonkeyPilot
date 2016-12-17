@@ -4,6 +4,8 @@ import controller.managers.BodyManager;
 import model.Model;
 import view.View;
 
+import java.util.Random;
+
 /**
  * Created by Dell on 17/12/2016.
  */
@@ -17,7 +19,11 @@ public class Starcontroller extends Controller implements Body{
     @Override
     public void onContact(Body other) {
         if (other instanceof Planecontroller) {
-            System.out.println("Da va cham @@@@@@@@@");
+            Random ran = new Random();
+            int newX= ran.nextInt(600) + 100;
+            int newY  = ran.nextInt(400) + 100;
+            this.getModel().setX(newX);
+            this.getModel().setY(newY);
         }
     }
 }

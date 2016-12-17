@@ -1,9 +1,13 @@
 package controller;
 
+import controller.managers.ControllerManager;
+import controller.managers.TrapManager;
 import model.Model;
 import util.Utils;
 import view.View;
 import controller.managers.BodyManager;
+
+import java.util.TreeMap;
 
 /**
  * Created by Dell on 17/12/2016.
@@ -12,6 +16,8 @@ import controller.managers.BodyManager;
 public class Planecontroller extends Controller implements Body {
     private static final int width = 50;
     private static final int height = 30;
+    private int score = 0;
+
 
     public Planecontroller(Model model, View view) {
         super(model, view);
@@ -25,7 +31,9 @@ public class Planecontroller extends Controller implements Body {
 
 
     public static Planecontroller creat(int x, int y) {
-        return new Planecontroller(new Model(x, y, width, height), new View(Utils.loadimage("resources/plane2.png")));
+        Planecontroller planecontroller = new Planecontroller(new Model(x, y, width, height), new View(Utils.loadimage("resources/plane2.png")));
+        planecontroller.getModel().setHp(3);
+        return planecontroller;
     }
 
     public static int deg = 88;
@@ -38,25 +46,43 @@ public class Planecontroller extends Controller implements Body {
         this.n = n;
     }
 
-    public void run() {
-
-        if (n == 1) {
-            deg++;
-            double raDeg = Math.toRadians(deg);
-            x = 2 * Math.sin(raDeg);
-            y = 2 * Math.cos(raDeg);
-
-            if (deg == 360) {
-                deg = -1;
-            }
-            this.model.move(x, y);
-        } else this.model.move(x, y);
+    public int getScore() {
+        return score;
     }
+
+    public void run() {
+        if (this.getModel().isAlive())
+            if (n == 1) {
+                deg++;
+                double raDeg = Math.toRadians(deg);
+                x = 2 * Math.sin(raDeg);
+                y = 2 * Math.cos(raDeg);
+
+                if (deg == 360) {
+                    deg = -1;
+                }
+                if (this.model.checkout()) {
+                    x = -x;
+                    y = -y;
+                }
+                this.model.move(x, y);
+            } else {
+                if (this.model.checkout()) {
+                    x = -x;
+                    y = -y;
+                }
+                this.model.move(x, y);
+            }
+    }
+
     @Override
     public void onContact(Body other) {
-        if (other instanceof Starcontroller){
-
-
+        if (other instanceof Starcontroller) {
+            score++;
+            ControllerManager.controllers.add(TrapController.create());
+        }
+        if (other instanceof TrapController) {
+            this.getModel().decHp(1);
         }
     }
 }

@@ -20,6 +20,9 @@ public class BodyManager {
     public void register(Body body){
         this.bodies.add(body);
     }
+    public void remove(Body body){
+        this.bodies.remove(body);
+    }
 
     public void checkContact(){
 
@@ -34,7 +37,7 @@ public class BodyManager {
                 Model modelj = bodyj.getModel();
 
                 if(modeli.interects(modelj)){
-                    System.out.println("COntacted");
+                    System.out.println("Contacted");
                     bodyi.onContact(bodyj);
                     bodyj.onContact(bodyi);
                 }

@@ -11,15 +11,8 @@ public class Model {
     private double y;
     private int width;
     private int height;
-    //
-    private boolean isAlive = true;
-//
-    public void decHp(int dec){
-        hp-=dec;
-        if(hp<=0 ) {
-            isAlive =false;
-        }
-    }
+    private boolean isAlive= true;
+
     public int getHp() {
         return hp;
     }
@@ -68,12 +61,31 @@ public class Model {
 //        System.out.println(String.format("%s, %s", width, height));
         return new Rectangle((int)x, (int)y, width, height);
     }
+    public void decHp(int dec){
+        hp-= dec;
+        if(hp <= 0){
+            isAlive =false;
+        }
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
 
     public boolean interects(Model other){
         Rectangle rect1 = this.getRectangle();
         Rectangle rect2 = other.getRectangle();
         return rect1.intersects(rect2);
     }
-
-
+    public boolean checkout(){
+        if (x<0||x>800-width){
+            return true;
+        }else if(y<30 || y>600-height)
+            return true;
+        else return false;
+    }
 }

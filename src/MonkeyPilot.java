@@ -1,6 +1,7 @@
 import controller.Planecontroller;
 import controller.Starcontroller;
 import controller.managers.BodyManager;
+import controller.managers.ControllerManager;
 import jdk.nashorn.internal.ir.WhileNode;
 import model.Model;
 import util.Utils;
@@ -19,13 +20,16 @@ public class MonkeyPilot extends Frame implements Runnable {
 
     BufferedImage backbuffer;
     Planecontroller planecontroller;
+    ControllerManager controllerManager;
+
     public MonkeyPilot() {
         planecontroller = Planecontroller.creat(300, 300);
+        controllerManager = new ControllerManager();
         setVisible(true);
         setSize(800, 600);
         background = Utils.loadimage("resources/background.png");
         starcontroller = new Starcontroller(
-                new Model(200,200,64,60),
+                new Model(200, 200, 64, 60),
                 new View(Utils.loadimage("resources/island.png"))
         );
         backbuffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
@@ -84,24 +88,34 @@ public class MonkeyPilot extends Frame implements Runnable {
         });
     }
 
+        private void init(){
+            //
 
-
-    public void update(Graphics g){
-       Graphics backbuffergraphic = backbuffer.getGraphics();
-       backbuffergraphic.drawImage(background,0,0,800,600,null);
-       starcontroller.draw(backbuffergraphic);
+        }
+    public void update(Graphics g) {
+        Graphics backbuffergraphic = backbuffer.getGraphics();
+        backbuffergraphic.drawImage(background, 0, 0, 800, 600, null);
+        starcontroller.draw(backbuffergraphic);
         planecontroller.draw(backbuffergraphic);
+        controllerManager.draw(backbuffergraphic);
+        //
+        backbuffergraphic.drawString("HP : "+planecontroller.getModel().getHp(), 100,100);
+        backbuffergraphic.drawString("Score : " +planecontroller.getScore() , 100,120);
+        backbuffergraphic.drawString("num of bomb : " + controllerManager.controllers.size() , 100,130);
 
-       g.drawImage(backbuffer,0,0,800,600,null);
+
+        g.drawImage(backbuffer, 0, 0, 800, 600, null);
     }
 
-    public void run(){
-        while (true){
+    public void run() {
+        while (true) {
             try {
                 Thread.sleep(10);
                 this.repaint();
-                    planecontroller.run();
+                planecontroller.run();
+
                 BodyManager.instance.checkContact();
+                controllerManager.run();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -109,7 +123,6 @@ public class MonkeyPilot extends Frame implements Runnable {
         }
 
     }
-
 
 
 }
