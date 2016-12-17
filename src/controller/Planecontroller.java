@@ -9,6 +9,18 @@ import view.View;
 public class Planecontroller extends Controller {
     private static final int width =70;
     private static final int height =50;
+    double x;
+    double y;
+    private int n=0;
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
+
 
     public Planecontroller(Model model, View view) {
         super(model, view);
@@ -16,20 +28,21 @@ public class Planecontroller extends Controller {
     public static Planecontroller creat(int x,int y){
         return new Planecontroller(new Model(x,y,width,height),new View(Utils.loadimage("resources/plane2.png")));
     }
-    public static int deg =0;
+    public static int deg =-1;
     public void run(){
-        double x;
-        double y;
-        
+
         deg++;
-        
+
         double raDeg = Math.toRadians(deg);
-        if (deg >270 &&deg <360){
-
-
-        }
-
-        this.model.move(x,y);
+           if(n==1) {
+               x = 2 * Math.sin(raDeg);
+               y = 2 * Math.cos(raDeg);
+               if (deg == 360) {
+                   deg = -1;
+               }
+               this.model.move(y,x);
+           }
+        else this.model.move(y,x);
     }
 
 }

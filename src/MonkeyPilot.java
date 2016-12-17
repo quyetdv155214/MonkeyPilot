@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
+import java.security.Key;
 
 /**
  * Created by Dell on 17/12/2016.
@@ -68,12 +69,17 @@ public class MonkeyPilot extends Frame implements Runnable {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()== KeyEvent.VK_SPACE) {
+                    planecontroller.setN(1);
+                }
+                System.out.println("1");
 
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-
+                planecontroller.setN(0);
+                System.out.println("2");
             }
         });
     }
@@ -90,8 +96,8 @@ public class MonkeyPilot extends Frame implements Runnable {
         while (true){
             try {
                 Thread.sleep(17);
-                this.repaint();
                 planecontroller.run();
+                this.repaint();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

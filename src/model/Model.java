@@ -4,7 +4,7 @@ package model;
  * Created by Dell on 17/12/2016.
  */
 public class Model {
-    private int x;
+    private dou x;
     private int y;
     private int width;
     private int height;
