@@ -3,10 +3,7 @@ import jdk.nashorn.internal.ir.WhileNode;
 import util.Utils;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -68,6 +65,8 @@ public class MonkeyPilot extends Frame implements Runnable {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_SPACE)
+                    planecontroller.run();
 
             }
 
@@ -77,6 +76,9 @@ public class MonkeyPilot extends Frame implements Runnable {
             }
         });
     }
+
+
+
     public void update(Graphics g){
        Graphics backbuffergraphic = backbuffer.getGraphics();
        backbuffergraphic.drawImage(background,0,0,800,600,null);
@@ -91,11 +93,14 @@ public class MonkeyPilot extends Frame implements Runnable {
             try {
                 Thread.sleep(10);
                 this.repaint();
-                planecontroller.run();
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
     }
+
+
+
 }
