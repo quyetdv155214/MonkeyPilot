@@ -55,7 +55,7 @@ public class Planecontroller extends Controller implements Body {
     @Override
     public void onContact(Body other) {
         if (other instanceof Starcontroller){
-            System.out.println("Da va cham -------------------");
+
 
         }
     }

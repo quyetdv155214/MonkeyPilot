@@ -22,7 +22,9 @@ public class BodyManager {
     }
 
     public void checkContact(){
-        for (int i = 0; i< bodies.size() -1; i++){
+
+//        System.out.println(bodies.size());
+        for (int i = 0; i < bodies.size() -1; i++){
             for (int j = i+1; j < bodies.size(); j++){
 
                 Body bodyi =  bodies.get(i);
@@ -32,6 +34,7 @@ public class BodyManager {
                 Model modelj = bodyj.getModel();
 
                 if(modeli.interects(modelj)){
+                    System.out.println("COntacted");
                     bodyi.onContact(bodyj);
                     bodyj.onContact(bodyi);
                 }

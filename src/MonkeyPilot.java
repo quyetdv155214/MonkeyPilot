@@ -1,6 +1,10 @@
 import controller.Planecontroller;
+import controller.Starcontroller;
+import controller.managers.BodyManager;
 import jdk.nashorn.internal.ir.WhileNode;
+import model.Model;
 import util.Utils;
+import view.View;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -11,7 +15,7 @@ import java.awt.image.BufferedImage;
  */
 public class MonkeyPilot extends Frame implements Runnable {
     Image background;
-    Image star;
+    Starcontroller starcontroller;
 
     BufferedImage backbuffer;
     Planecontroller planecontroller;
@@ -20,7 +24,10 @@ public class MonkeyPilot extends Frame implements Runnable {
         setVisible(true);
         setSize(800, 600);
         background = Utils.loadimage("resources/background.png");
-        star = Utils.loadimage("resources/island.png");
+        starcontroller = new Starcontroller(
+                new Model(200,200,64,60),
+                new View(Utils.loadimage("resources/island.png"))
+        );
         backbuffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
         addWindowListener(new WindowListener() {
             @Override
@@ -82,7 +89,7 @@ public class MonkeyPilot extends Frame implements Runnable {
     public void update(Graphics g){
        Graphics backbuffergraphic = backbuffer.getGraphics();
        backbuffergraphic.drawImage(background,0,0,800,600,null);
-       backbuffergraphic.drawImage(star,500,400,64,60,null);
+       starcontroller.draw(backbuffergraphic);
         planecontroller.draw(backbuffergraphic);
 
        g.drawImage(backbuffer,0,0,800,600,null);
@@ -94,6 +101,7 @@ public class MonkeyPilot extends Frame implements Runnable {
                 Thread.sleep(10);
                 this.repaint();
                     planecontroller.run();
+                BodyManager.instance.checkContact();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

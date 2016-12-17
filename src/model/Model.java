@@ -11,7 +11,15 @@ public class Model {
     private double y;
     private int width;
     private int height;
-
+    //
+    private boolean isAlive = true;
+//
+    public void decHp(int dec){
+        hp-=dec;
+        if(hp<=0 ) {
+            isAlive =false;
+        }
+    }
     public int getHp() {
         return hp;
     }
@@ -57,6 +65,7 @@ public class Model {
     }
 
     public Rectangle getRectangle(){
+//        System.out.println(String.format("%s, %s", width, height));
         return new Rectangle((int)x, (int)y, width, height);
     }
 
@@ -65,4 +74,6 @@ public class Model {
         Rectangle rect2 = other.getRectangle();
         return rect1.intersects(rect2);
     }
+
+
 }
