@@ -17,6 +17,7 @@ public class Planecontroller extends Controller implements Body {
     private static final int width = 50;
     private static final int height = 30;
     private int score = 0;
+    private double speed = 1;
 
 
     public Planecontroller(Model model, View view) {
@@ -55,8 +56,8 @@ public class Planecontroller extends Controller implements Body {
             if (n == 1) {
                 deg++;
                 double raDeg = Math.toRadians(deg);
-                x = 2 * Math.sin(raDeg);
-                y = 2 * Math.cos(raDeg);
+                x = speed * Math.sin(raDeg);
+                y = speed * Math.cos(raDeg);
 
                 if (deg == 360) {
                     deg = -1;
