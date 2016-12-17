@@ -3,10 +3,7 @@ import jdk.nashorn.internal.ir.WhileNode;
 import util.Utils;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.security.Key;
 
@@ -16,6 +13,8 @@ import java.security.Key;
 public class MonkeyPilot extends Frame implements Runnable {
     Image background;
     Image star;
+    boolean turn = false;
+
     BufferedImage backbuffer;
     Planecontroller planecontroller;
     public MonkeyPilot(){
@@ -64,25 +63,40 @@ public class MonkeyPilot extends Frame implements Runnable {
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
+                turn =true;
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
+<<<<<<< HEAD
                 if(e.getKeyCode()== KeyEvent.VK_SPACE) {
                     planecontroller.setN(1);
                 }
                 System.out.println("1");
 
+=======
+                if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    Planecontroller.deg++;
+                    planecontroller.run();
+                }
+>>>>>>> 4ef89fbb49251cb2031a036ff4f578f5093c90cc
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
+<<<<<<< HEAD
                 planecontroller.setN(0);
                 System.out.println("2");
+=======
+                turn =false;
+
+>>>>>>> 4ef89fbb49251cb2031a036ff4f578f5093c90cc
             }
         });
     }
+
+
+
     public void update(Graphics g){
        Graphics backbuffergraphic = backbuffer.getGraphics();
        backbuffergraphic.drawImage(background,0,0,800,600,null);
@@ -95,13 +109,24 @@ public class MonkeyPilot extends Frame implements Runnable {
     public void run(){
         while (true){
             try {
+<<<<<<< HEAD
                 Thread.sleep(17);
                 planecontroller.run();
                 this.repaint();
+=======
+                Thread.sleep(10);
+                this.repaint();
+                if(!turn){
+                    planecontroller.run();
+                }
+>>>>>>> 4ef89fbb49251cb2031a036ff4f578f5093c90cc
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
     }
+
+
+
 }

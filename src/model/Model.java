@@ -4,8 +4,13 @@ package model;
  * Created by Dell on 17/12/2016.
  */
 public class Model {
+<<<<<<< HEAD
     private dou x;
     private int y;
+=======
+    private double x;
+    private double y;
+>>>>>>> 4ef89fbb49251cb2031a036ff4f578f5093c90cc
     private int width;
     private int height;
 
@@ -18,7 +23,7 @@ public class Model {
         return height;
     }
 
-    public Model(int x, int y, int width, int height) {
+    public Model(double x, double y, int width, int height) {
 
         this.x = x;
         this.y = y;
@@ -26,7 +31,7 @@ public class Model {
         this.height = height;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -34,7 +39,7 @@ public class Model {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 

@@ -15,6 +15,6 @@ public class View {
         this.image = image;
     }
     public void draw(Graphics g, Model model){
-        g.drawImage(image,model.getX(),model.getY(),model.getWidth(),model.getHeight(),null);
+        g.drawImage(image,(int)model.getX(),(int)model.getY(),model.getWidth(),model.getHeight(),null);
     }
 }
