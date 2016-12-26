@@ -1,5 +1,6 @@
 package controller.managers;
 
+import controller.BaseController;
 import controller.Controller;
 
 import java.awt.*;
@@ -9,12 +10,15 @@ import java.util.Vector;
 /**
  * Created by q on 12/17/2016.
  */
-public class ControllerManager {
+public class ControllerManager implements BaseController{
     public static Vector<Controller> controllers;
+
+
 
     public ControllerManager() {
         controllers = new Vector<>();
     }
+
 
     public void draw(Graphics g) {
         try {
@@ -40,7 +44,6 @@ public class ControllerManager {
             //
             if(!controller.getModel().isAlive()){
                 iterator.remove();
-//                System.out.println("remove controller");
             }
         }
     }

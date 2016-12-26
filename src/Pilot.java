@@ -1,3 +1,5 @@
+import controller.BaseController;
+import controller.GameSetting;
 import controller.Planecontroller;
 import controller.Starcontroller;
 import controller.managers.BodyManager;
@@ -5,16 +7,18 @@ import controller.managers.ControllerManager;
 import model.BackGround;
 import model.Model;
 import util.Utils;
+import view.SingleView;
 import view.View;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.util.Vector;
 
 /**
  * Created by Dell on 17/12/2016.
  */
-public class MonkeyPilot extends Frame implements Runnable {
+public class Pilot extends Frame implements Runnable {
     Image background;
     Starcontroller starcontroller;
 
@@ -22,23 +26,27 @@ public class MonkeyPilot extends Frame implements Runnable {
     Planecontroller planecontroller;
     ControllerManager controllerManager;
     private static BackGround bg1, bg2;
+    Vector<BaseController> baseControllers ;
 
-    public MonkeyPilot() {
+    public Pilot() {
+        baseControllers = new Vector<>();
+        setVisible(true);
+        setSize(GameSetting.instance.getWidth(), GameSetting.instance.getHeight());
         ///background
+        background = Utils.loadImage("resources/background1.png");
         bg1 = new BackGround(0,0);
-        bg2 = new BackGround(2160, 0);
+        bg2 = new BackGround(2300, 0);
 
         //
-        background = Utils.loadimage("resources/background1.png");
-                planecontroller = Planecontroller.creat(300, 300);
+//        baseControllers.add(Planecontroller.instance);
+
+        planecontroller = Planecontroller.instance;
+
         controllerManager = new ControllerManager();
-        setVisible(true);
-        setSize(800, 600);
-//        background = Utils.loadimage("resources/background.png");
 
         starcontroller = new Starcontroller(
                 new Model(200, 200, 64, 60),
-                new View(Utils.loadimage("resources/island.png"))
+                new SingleView(Utils.loadImage("resources/island.png"))
         );
         backbuffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
         addWindowListener(new WindowListener() {
@@ -111,7 +119,7 @@ public class MonkeyPilot extends Frame implements Runnable {
         //
         backbuffergraphic.drawString("HP : "+planecontroller.getModel().getHp(), 100,100);
         backbuffergraphic.drawString("Score : " +planecontroller.getScore() , 100,120);
-        backbuffergraphic.drawString("num of bomb : " + controllerManager.controllers.size() , 100,130);
+//        backbuffergraphic.drawString("num of bomb : " + ControllerManager.instance.controllers.size() , 100,130);
     // update background
 
 

@@ -3,8 +3,8 @@
  */
 public class Program {
     public static void main(String[] args){
-        MonkeyPilot monkeyPilot = new MonkeyPilot();
-        Thread thread = new Thread(monkeyPilot);
+        Pilot pilot = new Pilot();
+        Thread thread = new Thread(pilot);
         thread.start();
     }
 }

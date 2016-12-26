@@ -8,13 +8,8 @@ import java.awt.*;
 /**
  * Created by Dell on 17/12/2016.
  */
-public class View {
-    Image image;
+public interface View {
 
-    public View(Image image) {
-        this.image = image;
-    }
-    public void draw(Graphics g, Model model){
-        g.drawImage(image,(int)model.getX(),(int)model.getY(),model.getWidth(),model.getHeight(),null);
-    }
+
+    void draw(Graphics g, Model model);
 }

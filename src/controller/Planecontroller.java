@@ -1,13 +1,15 @@
 package controller;
 
 import controller.managers.ControllerManager;
-import controller.managers.TrapManager;
+import controller.trap.TrapController;
 import model.Model;
 import util.Utils;
+import view.Animation;
 import view.View;
 import controller.managers.BodyManager;
 
-import java.util.TreeMap;
+import java.awt.image.BufferedImage;
+import java.util.Vector;
 
 /**
  * Created by Dell on 17/12/2016.
@@ -17,10 +19,12 @@ public class Planecontroller extends Controller implements Body {
     private static final int width = 50;
     private static final int height = 30;
     private int score = 0;
-    private double speed = 1;
+    private double speed = 2;
+
+    public static final Planecontroller instance = creat(300,300);
 
 
-    public Planecontroller(Model model, View view) {
+    private Planecontroller(Model model, View view) {
         super(model, view);
         BodyManager.instance.register(this);
     }
@@ -31,13 +35,16 @@ public class Planecontroller extends Controller implements Body {
     double y;
 
 
-    public static Planecontroller creat(int x, int y) {
-        Planecontroller planecontroller = new Planecontroller(new Model(x, y, width, height), new View(Utils.loadimage("resources/plane2.png")));
+    private static Planecontroller creat(int x, int y) {
+
+        Vector<BufferedImage> images = new Vector<>();
+        images.add(Utils.loadImage("resources/heli1.png"));
+        images.add(Utils.loadImage("resources/heli2.png"));
+        Planecontroller planecontroller = new Planecontroller(new Model(x, y, width, height),
+                new Animation(images));
         planecontroller.getModel().setHp(3);
         return planecontroller;
     }
-
-    public static int deg = 88;
 
     public int getN() {
         return n;
@@ -50,6 +57,8 @@ public class Planecontroller extends Controller implements Body {
     public int getScore() {
         return score;
     }
+
+    public static int deg = 88;
 
     public void run() {
         if (this.getModel().isAlive())
@@ -65,12 +74,22 @@ public class Planecontroller extends Controller implements Body {
                 if (this.model.checkout()) {
                     x = -x;
                     y = -y;
+//                    deg += 180;
+//                     raDeg = Math.toRadians(deg);
+//
+//                    x = speed * Math.sin(raDeg);
+//                    y = speed * Math.cos(raDeg);
                 }
                 this.model.move(x, y);
             } else {
                 if (this.model.checkout()) {
                     x = -x;
                     y = -y;
+//                    deg += 180;
+//                    double raDeg = Math.toRadians(deg);
+//
+//                    x = speed * Math.sin(raDeg);
+//                    y = speed * Math.cos(raDeg);
                 }
                 this.model.move(x, y);
             }

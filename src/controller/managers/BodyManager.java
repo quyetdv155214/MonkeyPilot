@@ -3,6 +3,7 @@ package controller.managers;
 import controller.Body;
 import model.Model;
 
+import java.util.Iterator;
 import java.util.Vector;
 
 /**
@@ -25,8 +26,14 @@ public class BodyManager {
     }
 
     public void checkContact(){
-
-//        System.out.println(bodies.size());
+        Iterator<Body> iterator = this.bodies.iterator();
+        while (iterator.hasNext()) {
+            Body body = iterator.next();
+            if (!body.getModel().isAlive()) {
+//                if (!(body instanceof PlaneController))
+                iterator.remove();
+            }
+        }
         for (int i = 0; i < bodies.size() -1; i++){
             for (int j = i+1; j < bodies.size(); j++){
 
@@ -37,7 +44,7 @@ public class BodyManager {
                 Model modelj = bodyj.getModel();
 
                 if(modeli.interects(modelj)){
-                    System.out.println("Contacted");
+//                    System.out.println("Contacted");
                     bodyi.onContact(bodyj);
                     bodyj.onContact(bodyi);
                 }
