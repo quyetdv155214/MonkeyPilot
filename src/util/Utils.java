@@ -58,4 +58,9 @@ public class Utils {
           return bufferedImages;
     }
 
+    public void rotate(int deg){
+
+    }
+
+
 }

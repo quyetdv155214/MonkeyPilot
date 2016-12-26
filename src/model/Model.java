@@ -1,7 +1,11 @@
 package model;
 
+import controller.ExplosionController;
 import controller.GameSetting;
 import controller.GameVector;
+import controller.managers.ControllerManager;
+import util.Utils;
+import view.Animation;
 
 import java.awt.*;
 
@@ -100,6 +104,12 @@ public class Model {
         Rectangle rect1 = this.getRectangle();
         Rectangle rect2 = other.getRectangle();
         return rect1.intersects(rect2);
+    }
+    public void destroy(){
+        ExplosionController explosionController = new ExplosionController(new Model(this.x,this.y,this.width,this.height),
+                new Animation(Utils.loadSheet("resources/explosion.png",32,32,1,6)));
+        ControllerManager.explosion.controllers.add(explosionController);
+        Utils.playSound("resources/Explosion8.wav", false);
     }
 
     public boolean checkout() {

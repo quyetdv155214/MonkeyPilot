@@ -2,6 +2,7 @@ package controller;
 
 import controller.managers.BodyManager;
 import model.Model;
+import util.Utils;
 import view.View;
 
 import java.util.Random;
@@ -22,6 +23,7 @@ public class Starcontroller extends Controller implements Body{
             Random ran = new Random();
             int newX= ran.nextInt(600) + 100;
             int newY  = ran.nextInt(400) + 100;
+            Utils.playSound("resources/Pickup_Coin13.wav", false);
             this.getModel().setX(newX);
             this.getModel().setY(newY);
         }

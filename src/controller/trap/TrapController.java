@@ -42,14 +42,12 @@ public class TrapController extends Controller implements Body {
     @Override
     public void run() {
 
-
-
     }
 
     @Override
     public void onContact(Body other) {
         this.getModel().decHp(1);
         BodyManager.instance.remove(this);
-
+        this.model.destroy();
     }
 }

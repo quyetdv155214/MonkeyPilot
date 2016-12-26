@@ -45,8 +45,8 @@ public class Pilot extends Frame implements Runnable {
         controllerManager = new ControllerManager();
 
         starcontroller = new Starcontroller(
-                new Model(200, 200, 64, 60),
-                new SingleView(Utils.loadImage("resources/island.png"))
+                new Model(200, 200, 50, 50),
+                new SingleView(Utils.loadImage("resources/diamond.png"))
         );
         backbuffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
         addWindowListener(new WindowListener() {

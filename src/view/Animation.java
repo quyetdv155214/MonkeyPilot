@@ -1,6 +1,7 @@
 package view;
 
 
+import controller.Planecontroller;
 import model.Model;
 
 import java.awt.*;
@@ -29,6 +30,8 @@ public class Animation implements  View {
 
     @Override
     public void draw(Graphics g, Model model) {
+        int deg = Planecontroller.deg;
+
 
         BufferedImage image = images.get(imageCount);
         g.drawImage(

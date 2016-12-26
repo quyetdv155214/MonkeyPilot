@@ -13,6 +13,7 @@ import java.util.Vector;
 public class ControllerManager implements BaseController{
     public static Vector<Controller> controllers;
 
+    public static final ControllerManager explosion = new ControllerManager();
 
 
     public ControllerManager() {

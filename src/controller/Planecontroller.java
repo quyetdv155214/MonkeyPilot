@@ -1,6 +1,7 @@
 package controller;
 
 import controller.managers.ControllerManager;
+import controller.managers.TrapManager;
 import controller.trap.TrapController;
 import model.Model;
 import util.Utils;
@@ -16,10 +17,12 @@ import java.util.Vector;
  */
 
 public class Planecontroller extends Controller implements Body {
-    private static final int width = 50;
+    private static final int width = 70;
     private static final int height = 30;
     private int score = 0;
     private double speed = 2;
+    TrapManager trapManager = new TrapManager();
+
 
     public static final Planecontroller instance = creat(300,300);
 
@@ -40,6 +43,7 @@ public class Planecontroller extends Controller implements Body {
         Vector<BufferedImage> images = new Vector<>();
         images.add(Utils.loadImage("resources/heli1.png"));
         images.add(Utils.loadImage("resources/heli2.png"));
+
         Planecontroller planecontroller = new Planecontroller(new Model(x, y, width, height),
                 new Animation(images));
         planecontroller.getModel().setHp(3);
@@ -99,10 +103,12 @@ public class Planecontroller extends Controller implements Body {
     public void onContact(Body other) {
         if (other instanceof Starcontroller) {
             score++;
-            ControllerManager.controllers.add(TrapController.create());
+//            ControllerManager.controllers.add(TrapController.create());
+            trapManager.create();
         }
         if (other instanceof TrapController) {
             this.getModel().decHp(1);
+
         }
     }
 }
