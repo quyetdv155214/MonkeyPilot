@@ -13,13 +13,17 @@ import java.util.Vector;
  */
 public class Animation implements  View {
 
+    public Animation(Vector<BufferedImage> images, int delay) {
+        this.images = images;
+        this.delay = delay;
+    }
 
     public Animation(Vector<BufferedImage> images) {
-        this.images = images;
+        this(images, 3);
     }
 
     private Vector<BufferedImage> images;
-    private int count;
+    private int delay;
     private int imageCount;
 
     private boolean animationReachEnd = false;
@@ -40,9 +44,9 @@ public class Animation implements  View {
                 model.getWidth(), model.getHeight(),
                 null);
 
-        count++;
-        if (count > 3) {
-            count = 0;
+        delay++;
+        if (delay > 3) {
+            delay = 0;
             imageCount++;
             if (imageCount > images.size()-1) {
                 animationReachEnd = true;

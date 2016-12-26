@@ -26,7 +26,7 @@ public class Pilot extends Frame implements Runnable {
     Planecontroller planecontroller;
     ControllerManager controllerManager;
     private static BackGround bg1, bg2;
-    Vector<BaseController> baseControllers ;
+    Vector<BaseController> baseControllers;
 
     public Pilot() {
         baseControllers = new Vector<>();
@@ -34,7 +34,7 @@ public class Pilot extends Frame implements Runnable {
         setSize(GameSetting.instance.getWidth(), GameSetting.instance.getHeight());
         ///background
         background = Utils.loadImage("resources/background1.png");
-        bg1 = new BackGround(0,0);
+        bg1 = new BackGround(0, 0);
         bg2 = new BackGround(2300, 0);
 
         //
@@ -104,24 +104,30 @@ public class Pilot extends Frame implements Runnable {
         });
     }
 
-        private void init(){
-            //
+    private void init() {
+        //
 
-        }
+    }
+
     public void update(Graphics g) {
         Graphics backbuffergraphic = backbuffer.getGraphics();
-//        backbuffergraphic.drawImage(background, 0, 0, 800, 600, null);
-        backbuffergraphic.drawImage(background, bg1.getBgX(), bg1.getBgY(),2300,600, null);
-        backbuffergraphic.drawImage(background, bg2.getBgX(), bg2.getBgY(),2300,600, null);
-        starcontroller.draw(backbuffergraphic);
-        planecontroller.draw(backbuffergraphic);
-        controllerManager.draw(backbuffergraphic);
-        //
-        backbuffergraphic.drawString("HP : "+planecontroller.getModel().getHp(), 100,100);
-        backbuffergraphic.drawString("Score : " +planecontroller.getScore() , 100,120);
-//        backbuffergraphic.drawString("num of bomb : " + ControllerManager.instance.controllers.size() , 100,130);
-    // update background
+        backbuffergraphic.drawImage(background, bg1.getBgX(), bg1.getBgY(), 2300, 600, null);
+        backbuffergraphic.drawImage(background, bg2.getBgX(), bg2.getBgY(), 2300, 600, null);
+        if (Planecontroller.instance.getModel().isAlive()) {
 
+            starcontroller.draw(backbuffergraphic);
+            planecontroller.draw(backbuffergraphic);
+            controllerManager.draw(backbuffergraphic);
+            //
+            Font font = new Font("Bauhaus 93", Font.BOLD, 20);
+            backbuffergraphic.setFont(font);
+            backbuffergraphic.drawString("HP : " + planecontroller.getModel().getHp(), 100, 100);
+            backbuffergraphic.drawString("Score : " + planecontroller.getScore(), 100, 120);
+        }else{
+            backbuffergraphic.drawImage(Utils.loadImage("resources/gameOver.png"), 0,0,
+                    GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
+
+        }
 
 
         g.drawImage(backbuffer, 0, 0, 800, 600, null);
@@ -140,7 +146,6 @@ public class Pilot extends Frame implements Runnable {
                 //
                 bg1.update();
                 bg2.update();
-
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

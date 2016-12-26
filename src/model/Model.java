@@ -3,11 +3,14 @@ package model;
 import controller.ExplosionController;
 import controller.GameSetting;
 import controller.GameVector;
+import controller.TargetController;
 import controller.managers.ControllerManager;
 import util.Utils;
 import view.Animation;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Vector;
 
 /**
  * Created by Dell on 17/12/2016.
@@ -110,6 +113,21 @@ public class Model {
                 new Animation(Utils.loadSheet("resources/explosion.png",32,32,1,6)));
         ControllerManager.explosion.controllers.add(explosionController);
         Utils.playSound("resources/Explosion8.wav", false);
+    }
+    public static void target(int x, int y){
+        Vector<BufferedImage> images = new Vector<>();
+        images.add(Utils.loadImage("resources/target1.png"));
+        images.add(Utils.loadImage("resources/target2.png"));
+        images.add(Utils.loadImage("resources/target3.png"));
+        images.add(Utils.loadImage("resources/target4.png"));
+        images.add(Utils.loadImage("resources/target5.png"));
+        images.add(Utils.loadImage("resources/target6.png"));
+
+        TargetController pp = new TargetController(new Model(x, y,40,50),
+                new Animation(images,5));
+        System.out.println("ahihi");
+        ControllerManager.explosion.controllers.add(pp);
+//        Utils.playSound("resources/Explosion8.wav", false);
     }
 
     public boolean checkout() {

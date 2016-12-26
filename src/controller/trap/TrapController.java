@@ -5,6 +5,7 @@ import controller.Controller;
 import controller.managers.BodyManager;
 import model.Model;
 import util.Utils;
+import view.Animation;
 import view.SingleView;
 import view.View;
 
@@ -22,11 +23,12 @@ public class TrapController extends Controller implements Body {
         super(model, view);
         BodyManager.instance.register(this);
     }
-
+    static int count = 0;
     public static TrapController create() {
         Random ran = new Random();
         int x = ran.nextInt(600) + 100;
         int y = ran.nextInt(400) + 100;
+        Model.target(x, y);
         TrapController trapController = new TrapController(new Model(x, y, width, height),
                 new SingleView(Utils.loadImage("resources/bomb.png")));
         trapController.getModel().setHp(1);
@@ -48,6 +50,7 @@ public class TrapController extends Controller implements Body {
     public void onContact(Body other) {
         this.getModel().decHp(1);
         BodyManager.instance.remove(this);
+
         this.model.destroy();
     }
 }
