@@ -133,10 +133,16 @@ public class Planecontroller extends Controller implements Body {
         if (other instanceof Starcontroller) {
             score++;
 //            ControllerManager.controllers.add(TrapController.create());
+            Utils.playSound("resources/Pickup_Coin13.wav", false);
+
             trapManager.create();
         }
+        if (other instanceof Meteo)
+        {
+            model.decHp(1);
+        }
         if (other instanceof TrapController) {
-            this.getModel().decHp(1);
+            model.decHp(1);
 
         }
         if (other instanceof Time)

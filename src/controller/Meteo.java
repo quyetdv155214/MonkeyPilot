@@ -21,6 +21,7 @@ public class Meteo extends Controller implements Body {
         this.model.move(-2,4);
         BodyManager.instance.register(this);
     }
+
     public static Meteo creat(){
         Random ran = new Random();
         int y =0;

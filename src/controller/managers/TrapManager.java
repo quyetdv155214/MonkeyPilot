@@ -1,6 +1,7 @@
 package controller.managers;
 
 import controller.BaseController;
+import controller.TargetController;
 import controller.trap.TrapController;
 
 import java.awt.*;
@@ -12,8 +13,8 @@ public class TrapManager extends ControllerManager{
 
 
     public void create(){
-        TrapController trapController = TrapController.create();
-        controllers.add(trapController);
+        controllers.add(TargetController.create());
+
     }
 
 

@@ -1,5 +1,7 @@
 package controller;
 
+import controller.managers.ControllerManager;
+import controller.trap.TrapController;
 import model.Model;
 import util.Utils;
 import view.Animation;
@@ -7,6 +9,7 @@ import view.View;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import java.util.Vector;
 
 
@@ -17,34 +20,48 @@ public class TargetController extends Controller {
     public TargetController(Model model, View view) {
         super(model, view);
     }
+
     private static final int WIDTH = 50;
     private static final int HEIGHT = 50;
 
-    public static TargetController create (int x , int y ){
+    public static TargetController create(int x, int y) {
         Vector<BufferedImage> images = new Vector<>();
         images.add(Utils.loadImage("resources/target1.png"));
         images.add(Utils.loadImage("resources/target2.png"));
         images.add(Utils.loadImage("resources/target3.png"));
         images.add(Utils.loadImage("resources/target4.png"));
-        images.add(Utils.loadImage("resources/target5.png"));
-        images.add(Utils.loadImage("resources/target6.png"));
+
         //
         TargetController t = new TargetController(
                 new Model(x, y, WIDTH, HEIGHT),
-                new Animation(images)
+                new Animation(images, 10)
         );
 
         return t;
 
     }
 
+    public static TargetController create() {
+        Random ran = new Random();
+        int x = ran.nextInt(GameSetting.instance.getWidth() - 200) + 100;
+        int y = ran.nextInt(GameSetting.instance.getHeight() - 200) + 100;
+
+        return create(x, y);
+
+    }
+
+
+    int count = 0;
 
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        Animation animation = (Animation)this.view;
-        if (animation.isAnimationReachEnd()) {
+        Animation animation = (Animation) this.view;
+        count++;
+        if (animation.isAnimationReachEnd() && count == 600) {
             model.setAlive(false);
+            TrapController trapController = TrapController.create(model.getX(), model.getY());
+            ControllerManager.controllers.add(trapController);
         }
     }
 }

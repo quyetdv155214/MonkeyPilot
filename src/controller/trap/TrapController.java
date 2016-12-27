@@ -2,8 +2,10 @@ package controller.trap;
 
 import controller.Body;
 import controller.Controller;
+import controller.GameSetting;
 import controller.Planecontroller;
 import controller.managers.BodyManager;
+import controller.managers.TrapManager;
 import model.Model;
 import util.Utils;
 import view.Animation;
@@ -27,14 +29,16 @@ public class TrapController extends Controller implements Body {
     static int count = 0;
     public static TrapController create() {
         Random ran = new Random();
-        int x = ran.nextInt(600) + 100;
-        int y = ran.nextInt(400) + 100;
-//        Model.target(x, y);
+        int x = ran.nextInt(GameSetting.instance.getWidth() -200) + 100;
+        int y = ran.nextInt(GameSetting.instance.getHeight() -200) + 100;
+        return create(x, y);
+
+    }
+    public static TrapController create(double x,double y){
         TrapController trapController = new TrapController(new Model(x, y, width, height),
                 new SingleView(Utils.loadImage("resources/bomb.png")));
         trapController.getModel().setHp(1);
         return trapController;
-
     }
 
     @Override

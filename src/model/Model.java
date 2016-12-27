@@ -131,21 +131,8 @@ public class Model {
         ControllerManager.explosion.controllers.add(explosionController);
         Utils.playSound("resources/Explosion8.wav", false);
     }
-    public static void target(int x, int y){
-        Vector<BufferedImage> images = new Vector<>();
-        images.add(Utils.loadImage("resources/target1.png"));
-        images.add(Utils.loadImage("resources/target2.png"));
-        images.add(Utils.loadImage("resources/target3.png"));
-        images.add(Utils.loadImage("resources/target4.png"));
-        images.add(Utils.loadImage("resources/target5.png"));
-        images.add(Utils.loadImage("resources/target6.png"));
 
-        TargetController pp = new TargetController(new Model(x, y,40,50),
-                new Animation(images,5));
-        System.out.println("ahihi");
-        ControllerManager.explosion.controllers.add(pp);
-//        Utils.playSound("resources/Explosion8.wav", false);
-    }
+
 
     public int getMAX_TIME_LIVE() {
         return MAX_TIME_LIVE;
@@ -164,8 +151,6 @@ public class Model {
     }
 
     public void drawHealthBar(Graphics g, int x, int y) {
-//        int curTime = Planecontroller.instance.getModel().getLiveTime();
-//        int max = Planecontroller.instance.getModel().getMAX_TIME_LIVE();
         g.drawString("Gas ", x, y);
         g.drawRect(x, y, GameSetting.HEALTH_BAR_WIDTH, GameSetting.HEALTH_BAR_HEIGHT);
 
