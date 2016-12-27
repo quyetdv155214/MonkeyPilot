@@ -2,6 +2,7 @@ package controller.managers;
 
 import controller.BaseController;
 import controller.Controller;
+import controller.GameSetting;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -36,14 +37,12 @@ public class ControllerManager implements BaseController{
             controller.run();
         }
         Iterator<Controller> iterator = this.controllers.iterator();
-        // remove
-//        System.out.println("run");
 
         while(iterator.hasNext()){
             //
             Controller controller = iterator.next();
             //
-            if(!controller.getModel().isAlive()){
+            if(controller.getModel().checkDead()){
                 iterator.remove();
             }
         }

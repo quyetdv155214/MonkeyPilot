@@ -6,10 +6,7 @@ import controller.managers.BodyManager;
 import controller.managers.ControllerManager;
 import controller.managers.MeteoManager;
 import model.BackGround;
-import model.Model;
 import util.Utils;
-import view.SingleView;
-import view.View;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -21,18 +18,18 @@ import java.util.Vector;
  */
 public class Pilot extends Frame implements Runnable {
     Image background;
-    Starcontroller starcontroller;
 
     BufferedImage backbuffer;
-    Planecontroller planecontroller;
-    ControllerManager controllerManager;
     private static BackGround bg1, bg2;
-    MeteoManager meteoManager;
     Vector<BaseController> baseControllers;
-
     public Pilot() {
-        meteoManager = new MeteoManager();
         baseControllers = new Vector<>();
+        baseControllers.add(new MeteoManager());
+        baseControllers.add(ControllerManager.explosion);
+        baseControllers.add(new ControllerManager());
+        baseControllers.add(Starcontroller.instance);
+        baseControllers.add(Planecontroller.instance);
+        baseControllers.add(BodyManager.instance);
         setVisible(true);
         setSize(GameSetting.instance.getWidth(), GameSetting.instance.getHeight());
         ///background
@@ -40,17 +37,7 @@ public class Pilot extends Frame implements Runnable {
         bg1 = new BackGround(0, 0);
         bg2 = new BackGround(2300, 0);
 
-        //
-//        baseControllers.add(Planecontroller.instance);
 
-        planecontroller = Planecontroller.instance;
-
-        controllerManager = new ControllerManager();
-
-        starcontroller = new Starcontroller(
-                new Model(200, 200, 50, 50),
-                new SingleView(Utils.loadImage("resources/diamond.png"))
-        );
         backbuffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
         addWindowListener(new WindowListener() {
             @Override
@@ -96,39 +83,52 @@ public class Pilot extends Frame implements Runnable {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    planecontroller.setN(1);
+                    Planecontroller.instance.setN(1);
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                planecontroller.setN(0);
+                Planecontroller.instance.setN(0);
             }
         });
     }
 
     private void init() {
-        //
+
+    }
+    public void drawHealthBar(Graphics g, int x , int y)
+    {
+        g.drawString("Gas ", x , y );
+        g.drawRect(x, y, GameSetting.HEALTH_BAR_WIDTH,GameSetting.HEALTH_BAR_HEIGHT);
+        g.setColor(Color.GREEN);
+        g.fillRect(x , y,
+                Planecontroller.instance.getModel().getLiveTime() *
+                        (GameSetting.HEALTH_BAR_WIDTH / Planecontroller.instance.getModel().getMAX_TIME_LIVE()),
+                GameSetting.HEALTH_BAR_HEIGHT );
+//        System.out.println(Planecontroller.instance.getCurGas());
 
     }
 
     public void update(Graphics g) {
-        Graphics backbuffergraphic = backbuffer.getGraphics();
-        backbuffergraphic.drawImage(background, bg1.getBgX(), bg1.getBgY(), 2300, 600, null);
-        backbuffergraphic.drawImage(background, bg2.getBgX(), bg2.getBgY(), 2300, 600, null);
-        meteoManager.draw(backbuffergraphic);
+        Graphics bbg = backbuffer.getGraphics();
+        bbg.drawImage(background, bg1.getBgX(), bg1.getBgY(), 2300, 600, null);
+        bbg.drawImage(background, bg2.getBgX(), bg2.getBgY(), 2300, 600, null);
+
         if (Planecontroller.instance.getModel().isAlive()) {
 
-            starcontroller.draw(backbuffergraphic);
-            planecontroller.draw(backbuffergraphic);
-            controllerManager.draw(backbuffergraphic);
-            //
+            for(BaseController b : this.baseControllers)
+            {
+                b.draw(bbg);
+            }
             Font font = new Font("Bauhaus 93", Font.BOLD, 20);
-            backbuffergraphic.setFont(font);
-            backbuffergraphic.drawString("HP : " + planecontroller.getModel().getHp(), 100, 100);
-            backbuffergraphic.drawString("Score : " + planecontroller.getScore(), 100, 120);
+            bbg.setFont(font);
+            bbg.drawString("HP : " + Planecontroller.instance.getModel().getHp(), 100, 100);
+            bbg.drawString("Score : " + Planecontroller.instance.getScore(), 100, 120);
+            drawHealthBar(bbg, 100, 140);
+
         }else{
-            backbuffergraphic.drawImage(Utils.loadImage("resources/gameOver.png"), 0,0,
+            bbg.drawImage(Utils.loadImage("resources/gameOver.png"), 0,0,
                     GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
 
         }
@@ -142,11 +142,12 @@ public class Pilot extends Frame implements Runnable {
             try {
                 Thread.sleep(10);
                 this.repaint();
-                planecontroller.run();
 
-                BodyManager.instance.checkContact();
-                controllerManager.run();
-                meteoManager.run();
+
+                for(BaseController b : baseControllers)
+                {
+                    b.run();
+                }
                 //
                 bg1.update();
                 bg2.update();

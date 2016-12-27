@@ -23,6 +23,24 @@ public class Model {
     private int height;
     private boolean isAlive = true;
     private GameVector gameMove;
+    private  int MAX_TIME_LIVE = 100;
+    private int liveTime =1;
+
+    private int curTimeCount = 0;
+
+    public void decGas(){
+        curTimeCount++ ;
+        if (curTimeCount > 50){
+            liveTime--;
+            curTimeCount =0;
+        }
+    }
+    public void icsGas(int unit){
+        liveTime += unit;
+        if (liveTime > MAX_TIME_LIVE)
+            liveTime = MAX_TIME_LIVE;
+        System.out.println("+ " + unit + " gas");
+    }
 
     public int getHp() {
         return hp;
@@ -56,6 +74,7 @@ public class Model {
         this.gameMove = gameMove;
     }
 
+
     public double getX() {
         return x;
     }
@@ -75,7 +94,6 @@ public class Model {
     public void move(double dx, double dy) {
         x += dx;
         y += dy;
-
     }
 
     public void move(GameVector gameVector) {
@@ -130,11 +148,37 @@ public class Model {
 //        Utils.playSound("resources/Explosion8.wav", false);
     }
 
+    public int getMAX_TIME_LIVE() {
+        return MAX_TIME_LIVE;
+    }
+
+    public void setMAX_TIME_LIVE(int MAX_TIME_LIVE) {
+        this.MAX_TIME_LIVE = MAX_TIME_LIVE;
+    }
+
+    public int getLiveTime() {
+        return liveTime;
+    }
+
+    public void setLiveTime(int liveTime) {
+        this.liveTime = liveTime;
+    }
+
+
     public boolean checkout() {
         if (x < 0 || x > GameSetting.instance.getWidth() - width) {
             return true;
         } else if (y < 30 || y > GameSetting.instance.getHeight() - height)
             return true;
         else return false;
+    }
+
+    public boolean checkDead() {
+        GameSetting g = GameSetting.instance;
+        if (!isAlive || x > g.getWidth() ||  y > g.getHeight() || x < 0 || y < 0 || liveTime <= 0){
+            return true;
+        }
+        else return  false;
+
     }
 }

@@ -8,6 +8,7 @@ public class BackGround {
     private int bgY;
     private int bgSpeed;
 
+
     public BackGround(int bgX, int bgY) {
         this.bgX = bgX;
         this.bgY = bgY;

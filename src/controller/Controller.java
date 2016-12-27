@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * Created by Dell on 17/12/2016.
  */
-public class Controller {
+public class Controller implements BaseController{
     protected Model model;
     protected View view;
 

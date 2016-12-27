@@ -3,6 +3,7 @@ package controller;
 import controller.managers.BodyManager;
 import model.Model;
 import util.Utils;
+import view.SingleView;
 import view.View;
 
 import java.util.Random;
@@ -15,6 +16,14 @@ public class Starcontroller extends Controller implements Body{
     public Starcontroller(Model model, View view) {
         super(model, view);
         BodyManager.instance.register(this);
+    }
+    public static Starcontroller instance = create(200, 200);
+    private static Starcontroller create(int x, int y){
+        Starcontroller starcontroller = new Starcontroller(
+                new Model(x, y, 50, 50),
+                new SingleView(Utils.loadImage("resources/diamond.png"))
+        );
+        return starcontroller;
     }
 
     @Override

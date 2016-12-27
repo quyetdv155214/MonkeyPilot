@@ -26,7 +26,7 @@ public class Meteo extends Controller implements Body {
         int y =0;
         int x = ran.nextInt(600) + 100;
         Meteo meteo = new Meteo(
-                new Model((int)x,(int)y,125,96),
+                new Model((int)x,(int)y,62,48),
                 new SingleView(Utils.loadImage("resources/PTS da XOng.png"))
         );
         return meteo;
