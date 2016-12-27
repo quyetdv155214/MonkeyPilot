@@ -2,6 +2,7 @@ package controller.trap;
 
 import controller.Body;
 import controller.Controller;
+import controller.Planecontroller;
 import controller.managers.BodyManager;
 import model.Model;
 import util.Utils;
@@ -48,9 +49,11 @@ public class TrapController extends Controller implements Body {
 
     @Override
     public void onContact(Body other) {
-        this.getModel().decHp(1);
-        BodyManager.instance.remove(this);
+        if (other instanceof Planecontroller) {
+            this.getModel().decHp(1);
+            BodyManager.instance.remove(this);
 
-        this.model.destroy();
+            this.model.destroy();
+        }
     }
 }

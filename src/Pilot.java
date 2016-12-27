@@ -4,6 +4,7 @@ import controller.Planecontroller;
 import controller.Starcontroller;
 import controller.managers.BodyManager;
 import controller.managers.ControllerManager;
+import controller.managers.MeteoManager;
 import model.BackGround;
 import model.Model;
 import util.Utils;
@@ -26,9 +27,11 @@ public class Pilot extends Frame implements Runnable {
     Planecontroller planecontroller;
     ControllerManager controllerManager;
     private static BackGround bg1, bg2;
+    MeteoManager meteoManager;
     Vector<BaseController> baseControllers;
 
     public Pilot() {
+        meteoManager = new MeteoManager();
         baseControllers = new Vector<>();
         setVisible(true);
         setSize(GameSetting.instance.getWidth(), GameSetting.instance.getHeight());
@@ -113,6 +116,7 @@ public class Pilot extends Frame implements Runnable {
         Graphics backbuffergraphic = backbuffer.getGraphics();
         backbuffergraphic.drawImage(background, bg1.getBgX(), bg1.getBgY(), 2300, 600, null);
         backbuffergraphic.drawImage(background, bg2.getBgX(), bg2.getBgY(), 2300, 600, null);
+        meteoManager.draw(backbuffergraphic);
         if (Planecontroller.instance.getModel().isAlive()) {
 
             starcontroller.draw(backbuffergraphic);
@@ -142,7 +146,7 @@ public class Pilot extends Frame implements Runnable {
 
                 BodyManager.instance.checkContact();
                 controllerManager.run();
-
+                meteoManager.run();
                 //
                 bg1.update();
                 bg2.update();
