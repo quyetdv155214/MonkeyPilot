@@ -29,7 +29,7 @@ public class TrapController extends Controller implements Body {
         Random ran = new Random();
         int x = ran.nextInt(600) + 100;
         int y = ran.nextInt(400) + 100;
-        Model.target(x, y);
+//        Model.target(x, y);
         TrapController trapController = new TrapController(new Model(x, y, width, height),
                 new SingleView(Utils.loadImage("resources/bomb.png")));
         trapController.getModel().setHp(1);

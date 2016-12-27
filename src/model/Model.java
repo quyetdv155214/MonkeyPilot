@@ -1,9 +1,6 @@
 package model;
 
-import controller.ExplosionController;
-import controller.GameSetting;
-import controller.GameVector;
-import controller.TargetController;
+import controller.*;
 import controller.managers.ControllerManager;
 import util.Utils;
 import view.Animation;
@@ -34,6 +31,8 @@ public class Model {
             liveTime--;
             curTimeCount =0;
         }
+        if (liveTime <= 0)
+            isAlive = false;
     }
     public void icsGas(int unit){
         liveTime += unit;
@@ -164,6 +163,27 @@ public class Model {
         this.liveTime = liveTime;
     }
 
+    public void drawHealthBar(Graphics g, int x, int y) {
+//        int curTime = Planecontroller.instance.getModel().getLiveTime();
+//        int max = Planecontroller.instance.getModel().getMAX_TIME_LIVE();
+        g.drawString("Gas ", x, y);
+        g.drawRect(x, y, GameSetting.HEALTH_BAR_WIDTH, GameSetting.HEALTH_BAR_HEIGHT);
+
+        if (liveTime
+                < (MAX_TIME_LIVE / 5) && liveTime % 2 == 0) {
+            g.setColor(Color.RED);
+        }
+        else{
+            g.setColor(Color.GREEN);
+
+        }
+        g.fillRect(x, y,
+                liveTime *
+                        (GameSetting.HEALTH_BAR_WIDTH / MAX_TIME_LIVE),
+                GameSetting.HEALTH_BAR_HEIGHT);
+
+    }
+
 
     public boolean checkout() {
         if (x < 0 || x > GameSetting.instance.getWidth() - width) {
@@ -173,9 +193,11 @@ public class Model {
         else return false;
     }
 
+
+
     public boolean checkDead() {
         GameSetting g = GameSetting.instance;
-        if (!isAlive || x > g.getWidth() ||  y > g.getHeight() || x < 0 || y < 0 || liveTime <= 0){
+        if (!isAlive || x > g.getWidth() ||  y > g.getHeight() || x < 0 || y < 0){
             return true;
         }
         else return  false;

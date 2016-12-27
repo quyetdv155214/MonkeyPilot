@@ -18,7 +18,7 @@ public class MeteoManager extends ControllerManager  {
     public void run() {
         timecount++;
         super.run();
-        if (timecount ==400 ) {
+        if (timecount ==1000 ) {
             spawn();
             timecount =0;
         }

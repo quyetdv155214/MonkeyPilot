@@ -31,8 +31,7 @@ public class BodyManager implements BaseController{
         Iterator<Body> iterator = this.bodies.iterator();
         while (iterator.hasNext()) {
             Body body = iterator.next();
-            if (!body.getModel().isAlive()) {
-//                if (!(body instanceof PlaneController))
+            if (body.getModel().checkDead()) {
                 iterator.remove();
             }
         }

@@ -2,6 +2,7 @@ import controller.BaseController;
 import controller.GameSetting;
 import controller.Planecontroller;
 import controller.Starcontroller;
+import controller.item.ItemManager;
 import controller.managers.BodyManager;
 import controller.managers.ControllerManager;
 import controller.managers.MeteoManager;
@@ -22,6 +23,7 @@ public class Pilot extends Frame implements Runnable {
     BufferedImage backbuffer;
     private static BackGround bg1, bg2;
     Vector<BaseController> baseControllers;
+
     public Pilot() {
         baseControllers = new Vector<>();
         baseControllers.add(new MeteoManager());
@@ -30,6 +32,7 @@ public class Pilot extends Frame implements Runnable {
         baseControllers.add(Starcontroller.instance);
         baseControllers.add(Planecontroller.instance);
         baseControllers.add(BodyManager.instance);
+        baseControllers.add(new ItemManager());
         setVisible(true);
         setSize(GameSetting.instance.getWidth(), GameSetting.instance.getHeight());
         ///background
@@ -97,18 +100,7 @@ public class Pilot extends Frame implements Runnable {
     private void init() {
 
     }
-    public void drawHealthBar(Graphics g, int x , int y)
-    {
-        g.drawString("Gas ", x , y );
-        g.drawRect(x, y, GameSetting.HEALTH_BAR_WIDTH,GameSetting.HEALTH_BAR_HEIGHT);
-        g.setColor(Color.GREEN);
-        g.fillRect(x , y,
-                Planecontroller.instance.getModel().getLiveTime() *
-                        (GameSetting.HEALTH_BAR_WIDTH / Planecontroller.instance.getModel().getMAX_TIME_LIVE()),
-                GameSetting.HEALTH_BAR_HEIGHT );
-//        System.out.println(Planecontroller.instance.getCurGas());
 
-    }
 
     public void update(Graphics g) {
         Graphics bbg = backbuffer.getGraphics();
@@ -116,19 +108,16 @@ public class Pilot extends Frame implements Runnable {
         bbg.drawImage(background, bg2.getBgX(), bg2.getBgY(), 2300, 600, null);
 
         if (Planecontroller.instance.getModel().isAlive()) {
-
-            for(BaseController b : this.baseControllers)
-            {
+            for (BaseController b : this.baseControllers) {
                 b.draw(bbg);
             }
             Font font = new Font("Bauhaus 93", Font.BOLD, 20);
             bbg.setFont(font);
             bbg.drawString("HP : " + Planecontroller.instance.getModel().getHp(), 100, 100);
             bbg.drawString("Score : " + Planecontroller.instance.getScore(), 100, 120);
-            drawHealthBar(bbg, 100, 140);
-
-        }else{
-            bbg.drawImage(Utils.loadImage("resources/gameOver.png"), 0,0,
+            Planecontroller.instance.getModel().drawHealthBar(bbg, 100, 140);
+        } else {
+            bbg.drawImage(Utils.loadImage("resources/gameOver.png"), 0, 0,
                     GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
 
         }
@@ -144,8 +133,7 @@ public class Pilot extends Frame implements Runnable {
                 this.repaint();
 
 
-                for(BaseController b : baseControllers)
-                {
+                for (BaseController b : baseControllers) {
                     b.run();
                 }
                 //
