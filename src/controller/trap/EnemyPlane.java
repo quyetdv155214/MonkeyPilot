@@ -17,6 +17,7 @@ import java.util.Vector;
  */
 public class EnemyPlane extends Controller implements Body {
     EnemyMoveBehavior enemyMoveBehavior;
+    AttackBehavior attackBehavior;
     public static final int WIDTH = 50;
     public static final int HEIGHT = 50;
     public static final int a = 150;
@@ -38,10 +39,11 @@ public class EnemyPlane extends Controller implements Body {
         return HEIGHT;
     }
 
-    public EnemyPlane(Model model, View view, EnemyMoveBehavior enemyMoveBehavior) {
+    public EnemyPlane(Model model, View view, EnemyMoveBehavior enemyMoveBehavior, AttackBehavior attackBehavior) {
         super(model, view);
 //        moveVector = new GameVector(0,1);
         this.enemyMoveBehavior = enemyMoveBehavior;
+        this.attackBehavior = attackBehavior;
         BodyManager.instance.register(this);
     }
 
@@ -58,36 +60,66 @@ public class EnemyPlane extends Controller implements Body {
         {
             enemyMoveBehavior.doMove(this);
         }
+        if (attackBehavior instanceof  Explosion){
+            this.attackBehavior.doAttack(this.getModel());
+//            this.model.destroy();
+        }
     }
 
-    public static EnemyPlane create(int x , int y){
+    public static EnemyPlane create(int x , int y,EnemyType enemyType ){
+
         Vector<BufferedImage> images = new Vector<>();
-        images.add(Utils.loadImage("resources/plane1.png"));
-        EnemyPlane e  = new EnemyPlane(
-                new Model(x, y, WIDTH, HEIGHT),
-                new Animation(images),
-                new MoveStraight()
-        );
-        e.model.setMAX_TIME_LIVE(10);
-        e.model.setLiveTime(10);
-        return e;
+        EnemyPlane e;
+        switch (enemyType){
+            case GASDEC:
+                images.add(Utils.loadImage("resources/plane1.png"));
+                 e= new EnemyPlane(
+                        new Model(x, y, WIDTH, HEIGHT),
+                        new Animation(images),
+                        new MoveStraight(),
+                        new GasDec()
+                );
+                return e;
+            case LIFEDEC:
+                images.add(Utils.loadImage("resources/31013559_Fighter_Plane.png"));
+               e  = new EnemyPlane(
+                        new Model(x, y, WIDTH * 2, HEIGHT),
+                        new Animation(images),
+                        new MoveInLine(),
+                        new LifeDec()
+                );
+                return e;
+            case EXPLOSION:
+                images.add(Utils.loadImage("resources/mine.png"));
+                e  = new EnemyPlane(
+                        new Model(x, y, WIDTH , HEIGHT),
+                        new Animation(images),
+                        new MoveStraight(),
+                        new Explosion()
+                );
+                return e;
+        }
+
+
+
+        return null;
 
     }
-    public static EnemyPlane create(){
-        Vector<BufferedImage> images = new Vector<>();
-        images.add(Utils.loadImage("resources/plane.png"));
-        Random r = new Random();
-        int x = r.nextInt(GameSetting.instance.getWidth() * 2) +GameSetting.instance.getWidth();
-        int y = r.nextInt(GameSetting.instance.getHeight() - HEIGHT) +100;
-        EnemyPlane enemyPlane = create(x, y);
-        return enemyPlane;
-    }
+//    public static EnemyPlane create(){
+//        Vector<BufferedImage> images = new Vector<>();
+//        images.add(Utils.loadImage("resources/plane.png"));
+//        Random r = new Random();
+//        int x = r.nextInt(GameSetting.instance.getWidth() * 2) +GameSetting.instance.getWidth();
+//        int y = r.nextInt(GameSetting.instance.getHeight() - HEIGHT) +100;
+//        EnemyPlane enemyPlane = create(x, y,);
+//        return enemyPlane;
+//    }
 
     @Override
     public void onContact(Body other) {
         if(other instanceof Planecontroller){
-            model.destroy();
-
+           this.attackBehavior.doAttack(this.getModel());
+           this.model.destroy();
         }
     }
 }

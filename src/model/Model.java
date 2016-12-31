@@ -104,9 +104,13 @@ public class Model {
 //        System.out.println(String.format("%s, %s", width, height));
         return new Rectangle((int) x, (int) y, width, height);
     }
+    public GameVector subtract(Model model) {
+        return new GameVector(this.x - model.x, this.y - model.y);
+    }
 
     public void decHp(int dec) {
         hp -= dec;
+        System.out.println(hp);
         if (hp <= 0) {
             isAlive = false;
         }
@@ -129,6 +133,7 @@ public class Model {
         ExplosionController explosionController = new ExplosionController(new Model(this.x,this.y,this.width,this.height),
                 new Animation(Utils.loadSheet("resources/explosion.png",32,32,1,6)));
         ControllerManager.explosion.controllers.add(explosionController);
+
         setAlive(false);
 
         Utils.playSound("resources/Explosion8.wav", false);
@@ -179,11 +184,15 @@ public class Model {
 
     }
 
+
     public boolean checkout() {
-        if (x <= 1|| x > GameSetting.instance.getWidth() - width-1) {
+        if (x <= 1 || x > GameSetting.instance.getWidth() - width - 1) {
+            liveTime--;
             return true;
-        } else if (y <= 31 || y > GameSetting.instance.getHeight() - height-1)
-            return true;
+        } else if (y <= 31 || y > GameSetting.instance.getHeight() - height - 1){
+            liveTime--;
+             return true;
+         }
         else return false;
     }
     public void check(){

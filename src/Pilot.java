@@ -85,6 +85,7 @@ public class Pilot extends Frame implements Runnable, SceneListener {
                 currenScene.keyReleased(e);
             }
         });
+        setResizable(false);
     }
 
     private void init() {
@@ -93,7 +94,7 @@ public class Pilot extends Frame implements Runnable, SceneListener {
 
     public void replaceScene(GameScene newScene, boolean addToBackStack) {
         if (addToBackStack && currenScene != null) {
-            gameSceneStack.push(currenScene);
+            gameSceneStack.add(currenScene);
 
         }
         currenScene = newScene;
@@ -101,10 +102,9 @@ public class Pilot extends Frame implements Runnable, SceneListener {
 
     }
 
-    public void back(){
-        if (gameSceneStack.isEmpty()){
-            gameSceneStack.pop();
-        }
+    @Override
+    public void back() {
+
     }
 
     public void update(Graphics g) {

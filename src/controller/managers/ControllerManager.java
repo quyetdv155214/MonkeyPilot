@@ -41,10 +41,12 @@ public class ControllerManager implements BaseController{
     }
 
     public void run() {
-        for(Controller controller: this.controllers) {
-            controller.run();
+        for (int i = 0; i < controllers.size(); i++) {
+            controllers.get(i).run();
         }
+
         Iterator<Controller> iterator = this.controllers.iterator();
+
 
         while(iterator.hasNext()){
 
@@ -54,6 +56,7 @@ public class ControllerManager implements BaseController{
                 iterator.remove();
             }
         }
+
     }
 
 }

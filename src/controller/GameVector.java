@@ -17,4 +17,8 @@ public class GameVector {
     public double getLength() {
         return Math.sqrt(dx * dx + dy * dy);
     }
+    public void reverse(){
+        this.dx = -dx;
+        this.dy = -dy;
+    }
 }

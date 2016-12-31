@@ -31,11 +31,6 @@ public class Planecontroller extends Controller implements Body {
     TrapManager trapManager = new TrapManager();
     GameVector moveVector;
     public static final Planecontroller instance = creat(300,300);
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     private Planecontroller(Model model, View view) {
         super(model, view);
         moveVector = new GameVector(speed, 0);
@@ -80,44 +75,57 @@ public class Planecontroller extends Controller implements Body {
 
     public void run() {
         this.getModel().check();
+
         if (this.getModel().isAlive()) {
             model.decGas();
             if (n == 1) {
                 deg+=2;
                 double raDeg = Math.toRadians(deg);
-                x = speed * Math.sin(raDeg);
-                y = speed * Math.cos(raDeg);
-
+                moveVector.dx = speed * Math.sin(raDeg);
+                moveVector.dy = speed * Math.cos(raDeg);
                 if (deg == 360) {
                     deg = -1;
                 }
                 if (this.model.checkout()) {
-                    x = -x;
-                    y = -y;
+                    moveVector.reverse();
 //                    deg += 180;
 //                     raDeg = Math.toRadians(deg);
 //
 //                    x = speed * Math.sin(raDeg);
 //                    y = speed * Math.cos(raDeg);
                 }
-                this.model.move(x, y);
+                this.model.move(moveVector);
             } else {
                 if (this.model.checkout()) {
-                    x = -x;
-                    y = -y;
+                    moveVector.reverse();
+
+
 //                    deg += 180;
 //                    double raDeg = Math.toRadians(deg);
 //
 //                    x = speed * Math.sin(raDeg);
 //                    y = speed * Math.cos(raDeg);
                 }
-                this.model.move(x, y);
+
+                this.model.move(moveVector);
             }
         }
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public int getNumOfShield() {
         return numOfShield;
+    }
+
+    public GameVector getMoveVector() {
+        return moveVector;
+    }
+
+    public void setMoveVector(GameVector moveVector) {
+        this.moveVector = moveVector;
     }
 
     public int getNumOfRocket() {
@@ -167,7 +175,7 @@ public class Planecontroller extends Controller implements Body {
             numOfRocket ++;
         }
         if (other instanceof EnemyPlane){
-            this.model.icsGas(-15);
+
         }
 
     }
