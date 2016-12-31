@@ -51,6 +51,9 @@ public class Planecontroller extends Controller implements Body {
         for (int i = 0; i < ControllerManager.controllers.size(); i++) {
             ControllerManager.controllers.get(i).getModel().setAlive(false);
         }
+        Starcontroller.instance.model.setX(400);
+        Starcontroller.instance.model.setX(500);
+
         BodyManager.instance.register(this);
         BodyManager.instance.register(Starcontroller.instance);
         setMoveVector(new GameVector(speed, 0));

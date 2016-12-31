@@ -45,7 +45,6 @@ public class PlayGameScene extends GameScene {
 
     }
 
-
     @Override
     public void update(Graphics bbg) {
         bbg.drawImage(background, bg1.getBgX(), bg1.getBgY(), 2300, GameSetting.instance.getHeight(), null);
@@ -62,11 +61,7 @@ public class PlayGameScene extends GameScene {
             bbg.drawString("Score : " + Planecontroller.instance.getScore(), 100, 130);
             Planecontroller.instance.getModel().drawHealthBar(bbg, 100, 160);
         }
-//        else {
-//            bbg.drawImage(Utils.loadImage("resources/gameOver.png"), 0, 0,
-//                    GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
-//
-//        }
+
 
     }
 
@@ -88,11 +83,14 @@ public class PlayGameScene extends GameScene {
         }
     }
 
-
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             Planecontroller.instance.setN(1);
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_P){
+
+
         }
     }
 

@@ -29,7 +29,7 @@ public class Starcontroller extends Controller implements Body {
         BodyManager.instance.register(this);
     }
 
-    public static Starcontroller instance = create(200, 200);
+    public static Starcontroller instance = create(500, 400);
 
     private static Starcontroller create(int x, int y) {
         Starcontroller starcontroller = new Starcontroller(
@@ -44,7 +44,7 @@ public class Starcontroller extends Controller implements Body {
         super.run();
         if (!Starcontroller.instance.getAliveDiamon()){
             count++;
-            if (count > 500){
+            if (count > 400){
                 count = 0;
                 setNewLoc();
                 Starcontroller.instance.setAliveDiamon(true);

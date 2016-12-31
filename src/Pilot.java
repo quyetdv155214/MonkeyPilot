@@ -1,6 +1,8 @@
 import controller.GameSetting;
+import controller.Planecontroller;
 import controller.scenes.GameScene;
 import controller.scenes.MenuScene;
+import controller.scenes.PlayGameScene;
 import controller.scenes.SceneListener;
 
 import java.awt.*;
@@ -18,7 +20,8 @@ public class Pilot extends Frame implements Runnable, SceneListener {
     BufferedImage backbuffer;
     GameScene currenScene;
     Stack<GameScene> gameSceneStack;
-
+    public static boolean running = true;
+    int sleepTime = 17;
 
     public Pilot() {
         setSize(GameSetting.instance.getWidth(), GameSetting.instance.getHeight());
@@ -77,6 +80,25 @@ public class Pilot extends Frame implements Runnable, SceneListener {
             public void keyPressed(KeyEvent e) {
 //                System.out.println("keyPressed");
                 currenScene.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_P){
+                    if (running)
+                        running =false;
+                    else running=true;
+                }else
+                if (e.getKeyCode() == KeyEvent.VK_UP){
+                    if (sleepTime > 2)
+                    sleepTime --;
+                }
+                else if (e.getKeyCode() == KeyEvent.VK_DOWN)
+                {
+                    sleepTime++;
+                }
+                else if
+                        (e.getKeyCode() == KeyEvent.VK_R)
+                {
+                    replaceScene(new PlayGameScene(), false);
+                    Planecontroller.instance.reset();
+                }
             }
 
             @Override
@@ -109,7 +131,8 @@ public class Pilot extends Frame implements Runnable, SceneListener {
 
     public void update(Graphics g) {
         Graphics bbg = backbuffer.getGraphics();
-        currenScene.update(bbg);
+        if (running)
+            currenScene.update(bbg);
 
         g.drawImage(backbuffer, 0, 0, GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
     }
@@ -117,10 +140,10 @@ public class Pilot extends Frame implements Runnable, SceneListener {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(10);
+                Thread.sleep(sleepTime);
                 this.repaint();
-
-                currenScene.run();
+                if (running)
+                    currenScene.run();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
