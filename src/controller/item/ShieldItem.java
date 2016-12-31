@@ -41,7 +41,7 @@ public class ShieldItem extends Controller implements Body{
 
     public static ShieldItem create(int x, int y) {
         Vector<BufferedImage> images = new Vector<>();
-        images.add(Utils.loadImage("resources/Captain_America_Shield.png"));
+        images.add(Utils.loadImage("resources/Captain_America_Shield_edit.png"));
         //
         ShieldItem s = new ShieldItem(
                 new Model(x, y, WIDTH,HEIGHT),

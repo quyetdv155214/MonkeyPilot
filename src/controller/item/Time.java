@@ -48,7 +48,7 @@ public class Time extends Controller implements Body {
 
     public static Time create(int x, int y){
         Vector<BufferedImage> images = new Vector<>();
-        images.add(Utils.loadImage("resources/gas.png"));
+        images.add(Utils.loadImage("resources/gas_edit.png"));
         Time b = new Time(
                 new Model(x, y,WIDTH, HEIGHT ),
                 new Animation(images)
