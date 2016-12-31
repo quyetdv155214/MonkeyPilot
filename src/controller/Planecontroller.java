@@ -28,15 +28,32 @@ public class Planecontroller extends Controller implements Body {
     private int numOfShield = 0;
     private int numOfRocket = 0;
 
+
     TrapManager trapManager = new TrapManager();
     GameVector moveVector;
-    public static final Planecontroller instance = creat(300,300);
+    public static final Planecontroller instance = creat(300, 300);
+
     private Planecontroller(Model model, View view) {
         super(model, view);
         moveVector = new GameVector(speed, 0);
         model.setHp(3);
-
         BodyManager.instance.register(this);
+    }
+
+    public void reset() {
+        model.setAlive(true);
+        model.setX(300);
+        model.setY(300);
+        model.setHp(3);
+        model.setLiveTime(100);
+        setScore(0);
+        BodyManager.instance.removeAll();
+        for (int i = 0; i < ControllerManager.controllers.size(); i++) {
+            ControllerManager.controllers.get(i).getModel().setAlive(false);
+        }
+        BodyManager.instance.register(this);
+        BodyManager.instance.register(Starcontroller.instance);
+        setMoveVector(new GameVector(speed, 0));
     }
 
 
@@ -79,7 +96,7 @@ public class Planecontroller extends Controller implements Body {
         if (this.getModel().isAlive()) {
             model.decGas();
             if (n == 1) {
-                deg+=2;
+                deg += 2;
                 double raDeg = Math.toRadians(deg);
                 moveVector.dx = speed * Math.sin(raDeg);
                 moveVector.dy = speed * Math.cos(raDeg);
@@ -149,32 +166,30 @@ public class Planecontroller extends Controller implements Body {
 
             trapManager.create();
         }
-        if (other instanceof Meteo)
-        {
+        if (other instanceof Meteo) {
             model.decHp(1);
         }
         if (other instanceof TrapController) {
             model.decHp(1);
 
         }
-        if (other instanceof Time)
-        {
+        if (other instanceof Time) {
             this.getModel().icsGas(15);
 
-        }if (other instanceof ShieldItem)
-        {
+        }
+        if (other instanceof ShieldItem) {
 
-            if (!(numOfShield >=3 ))
-                numOfShield ++;
+            if (!(numOfShield >= 3))
+                numOfShield++;
 
-        }if (other instanceof BulletItem)
-        {
+        }
+        if (other instanceof BulletItem) {
 //            this.getModel().icsGas(15);
 
-            if(!(numOfRocket >=5))
-            numOfRocket ++;
+            if (!(numOfRocket >= 5))
+                numOfRocket++;
         }
-        if (other instanceof EnemyPlane){
+        if (other instanceof EnemyPlane) {
 
         }
 

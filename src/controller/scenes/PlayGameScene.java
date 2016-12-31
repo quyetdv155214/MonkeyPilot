@@ -36,7 +36,7 @@ public class PlayGameScene extends GameScene {
         baseControllers.add(Planecontroller.instance);
         baseControllers.add(BodyManager.instance);
         baseControllers.add(new ItemManager());
-baseControllers.add(new EnemyPlaneManager());
+        baseControllers.add(new EnemyPlaneManager());
 
         background = Utils.loadImage("resources/background1.png");
         bg1 = new BackGround(0, 0);
@@ -51,15 +51,16 @@ baseControllers.add(new EnemyPlaneManager());
         bbg.drawImage(background, bg1.getBgX(), bg1.getBgY(), 2300, GameSetting.instance.getHeight(), null);
         bbg.drawImage(background, bg2.getBgX(), bg2.getBgY(), 2300, GameSetting.instance.getHeight(), null);
 
-            if (Planecontroller.instance.getModel().isAlive()) {
+        if (Planecontroller.instance.getModel().isAlive()) {
             for (BaseController b : this.baseControllers) {
                 b.draw(bbg);
             }
-            Font font = new Font("Bauhaus 93", Font.BOLD, 20);
+            Font font = new Font("Bauhaus 93", Font.BOLD, 30);
             bbg.setFont(font);
+            bbg.setColor(Color.RED);
             bbg.drawString("HP : " + Planecontroller.instance.getModel().getHp(), 100, 100);
-            bbg.drawString("Score : " + Planecontroller.instance.getScore(), 100, 120);
-            Planecontroller.instance.getModel().drawHealthBar(bbg, 100, 140);
+            bbg.drawString("Score : " + Planecontroller.instance.getScore(), 100, 130);
+            Planecontroller.instance.getModel().drawHealthBar(bbg, 100, 160);
         }
 //        else {
 //            bbg.drawImage(Utils.loadImage("resources/gameOver.png"), 0, 0,
@@ -78,7 +79,7 @@ baseControllers.add(new EnemyPlaneManager());
         //
         bg1.update();
         bg2.update();
-        if (!Planecontroller.instance.getModel().isAlive()){
+        if (!Planecontroller.instance.getModel().isAlive()) {
             this.sceneListener.replaceScene(
                     new GameOverScene(),
                     true
@@ -90,7 +91,7 @@ baseControllers.add(new EnemyPlaneManager());
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_SPACE ) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             Planecontroller.instance.setN(1);
         }
     }

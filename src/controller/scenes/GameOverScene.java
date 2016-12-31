@@ -1,6 +1,7 @@
 package controller.scenes;
 
 import controller.GameSetting;
+import controller.GameVector;
 import controller.Planecontroller;
 import util.Utils;
 
@@ -31,12 +32,14 @@ public class GameOverScene extends GameScene {
     @Override
     public void keyPressed(KeyEvent e) {
         this.sceneListener.replaceScene(new PlayGameScene(), true);
-        Planecontroller.instance.getModel().setAlive(true);
-        Planecontroller.instance.getModel().setX(300);
-        Planecontroller.instance.getModel().setY(300);
-        Planecontroller.instance.getModel().setHp(3);
-        Planecontroller.instance.getModel().setLiveTime(100);
-        Planecontroller.instance.setScore(0);
+//        Planecontroller.instance.getModel().setAlive(true);
+//        Planecontroller.instance.getModel().setX(300);
+//        Planecontroller.instance.getModel().setY(300);
+//        Planecontroller.instance.getModel().setHp(3);
+//        Planecontroller.instance.getModel().setLiveTime(100);
+//        Planecontroller.instance.setScore(0);
+//        Planecontroller.instance.setMoveVector(new GameVector());
+    Planecontroller.instance.reset();
 
     }
 

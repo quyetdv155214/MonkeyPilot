@@ -28,8 +28,14 @@ public class BodyManager implements BaseController{
         this.bodies.remove(body);
         System.out.println(" remove ");
     }
+    public void removeAll(){
+        this.bodies.removeAllElements();
+    }
+
 
     public void run(){
+//        System.out.println(bodies.size());
+
         Iterator<Body> iterator = this.bodies.iterator();
         while (iterator.hasNext()) {
             Body body = iterator.next();
@@ -37,7 +43,6 @@ public class BodyManager implements BaseController{
                 if (!(body instanceof Planecontroller))
                 {
                     iterator.remove();
-
                 }
             }
         }

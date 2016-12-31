@@ -14,7 +14,7 @@ public class Explosion implements AttackBehavior {
         GameVector subtract = m.subtract(Planecontroller.instance.getModel());
         double length = subtract.getLength();
         System.out.println(length);
-        if (length < 200){
+        if (length < 100){
             m.destroy();
             Planecontroller.instance.getMoveVector().reverse();
         }
