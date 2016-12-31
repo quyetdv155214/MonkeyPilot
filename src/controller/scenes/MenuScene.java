@@ -1,5 +1,9 @@
 package controller.scenes;
 
+import controller.GameSetting;
+import controller.Planecontroller;
+import util.Utils;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -12,7 +16,11 @@ public class MenuScene extends GameScene {
     }
     @Override
     public void update(Graphics graphics) {
-
+        Font font = new Font("Bauhaus 93", Font.BOLD, 20);
+        graphics.setFont(font);
+        graphics.setColor(Color.pink);
+        graphics.drawImage(Utils.loadImage("resources/GameStart.png"),0,0, GameSetting.instance.getWidth(),GameSetting.instance.getHeight(),null);
+        graphics.drawString("Press any key to play " , 300, 300);
     }
 
     @Override
@@ -24,7 +32,7 @@ public class MenuScene extends GameScene {
     public void keyPressed(KeyEvent e) {
         this.sceneListener.replaceScene(
                 new PlayGameScene(),
-                true
+                false
 
         );
     }
