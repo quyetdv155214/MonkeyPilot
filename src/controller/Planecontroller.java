@@ -44,7 +44,7 @@ public class Planecontroller extends Controller implements Body {
         model.setAlive(true);
         model.setX(300);
         model.setY(300);
-        model.setHp(3);
+        model.setHp(30);
         model.setLiveTime(100);
         setScore(0);
         BodyManager.instance.removeAll();

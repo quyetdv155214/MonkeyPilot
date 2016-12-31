@@ -21,7 +21,7 @@ public class ItemManager extends ControllerManager {
     public void addItem() {
 
         Random ran = new Random();
-        int x = ran.nextInt(GameSetting.instance.getWidth() -200) + 100;
+        int x = ran.nextInt(GameSetting.instance.getWidth() -110) + 100;
         int y = 0;
         int type = ran.nextInt(XX);
         switch (type) {
@@ -33,6 +33,10 @@ public class ItemManager extends ControllerManager {
                 break;
             case 3:
                 controllers.add(ShieldItem.create(x, y));
+                break;
+            case 4:
+                controllers.add(IceItem.creat(x,y));
+                break;
             default:
                 return;
         }

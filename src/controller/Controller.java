@@ -16,6 +16,7 @@ public class Controller implements BaseController{
         this.model = model;
         this.view = view;
     }
+
     public void draw(Graphics g){
         view.draw(g,model);
     }

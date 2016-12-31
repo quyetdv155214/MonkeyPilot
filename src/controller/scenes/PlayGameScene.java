@@ -31,6 +31,7 @@ public class PlayGameScene extends GameScene {
         baseControllers = new Vector<>();
         baseControllers.add(new MeteoManager());
         baseControllers.add(ControllerManager.explosion);
+        baseControllers.add(ControllerManager.instance);
         baseControllers.add(new ControllerManager());
         baseControllers.add(Starcontroller.instance);
         baseControllers.add(Planecontroller.instance);
