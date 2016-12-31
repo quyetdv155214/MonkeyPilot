@@ -14,6 +14,16 @@ import java.util.Random;
  */
 public class Starcontroller extends Controller implements Body {
 
+    private static int count = 0;
+    private boolean isAliveDiamon = true;
+
+    public boolean getAliveDiamon() {
+        return isAliveDiamon;
+    }
+
+    public void setAliveDiamon(boolean aliveDiamon) {
+        isAliveDiamon = aliveDiamon;
+    }
     public Starcontroller(Model model, View view) {
         super(model, view);
         BodyManager.instance.register(this);
@@ -29,6 +39,19 @@ public class Starcontroller extends Controller implements Body {
         return starcontroller;
     }
 
+    @Override
+    public void run() {
+        super.run();
+        if (!Starcontroller.instance.getAliveDiamon()){
+            count++;
+            if (count > 500){
+                count = 0;
+                setNewLoc();
+                Starcontroller.instance.setAliveDiamon(true);
+                BodyManager.instance.register(this);
+            }
+        }
+    }
     private void setNewLoc() {
 
         Random ran = new Random();
@@ -44,7 +67,10 @@ public class Starcontroller extends Controller implements Body {
     @Override
     public void onContact(Body other) {
         if (other instanceof Planecontroller) {
-            setNewLoc();
+            this.getModel().setX(1000);
+            this.getModel().setY(1000);
+            Starcontroller.instance.setAliveDiamon(false);
+
         }
         if (other instanceof TrapController) {
             setNewLoc();
