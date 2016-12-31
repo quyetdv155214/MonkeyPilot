@@ -16,18 +16,19 @@ import java.util.Random;
 public class Meteo extends Controller implements Body {
     public Meteo(Model model, View view) {
         super(model, view);
+        BodyManager.instance.register(this);
+
     }
     public void run(){
-        this.model.move(-2,4);
-        BodyManager.instance.register(this);
+        this.model.move(-1,2);
     }
 
     public static Meteo creat(){
         Random ran = new Random();
         int y =0;
-        int x = ran.nextInt(600) + 100;
+        int x = ran.nextInt(GameSetting.instance.getWidth() -200) + 100;
         Meteo meteo = new Meteo(
-                new Model((int)x,(int)y,62,48),
+                new Model(x,y,62,48),
                 new SingleView(Utils.loadImage("resources/PTS da XOng.png"))
         );
         return meteo;
@@ -35,9 +36,10 @@ public class Meteo extends Controller implements Body {
     @Override
     public void onContact(Body other) {
         if (other instanceof Planecontroller){
+
+//            BodyManager.instance.remove(this);
             this.model.destroy();
-            this.model.setAlive(false);
-            BodyManager.instance.remove(this);
+
         }
     }
 }

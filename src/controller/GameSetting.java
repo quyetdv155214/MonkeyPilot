@@ -12,7 +12,6 @@ public class GameSetting {
     public static  final int HEALTH_BAR_WIDTH = 100;
     public static  final int HEALTH_BAR_HEIGHT = 20;
 
-
     public static final GameSetting instance = new GameSetting(800, 600);
 
     private GameSetting(int width, int height) {

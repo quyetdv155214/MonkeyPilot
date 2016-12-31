@@ -26,6 +26,7 @@ public class BodyManager implements BaseController{
     }
     public void remove(Body body){
         this.bodies.remove(body);
+        System.out.println(" remove ");
     }
 
     public void run(){
@@ -36,7 +37,7 @@ public class BodyManager implements BaseController{
                 if (!(body instanceof Planecontroller))
                 {
                     iterator.remove();
-//                    System.out.println("remove may may ");
+
                 }
             }
         }
