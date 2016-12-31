@@ -1,5 +1,6 @@
 package controller.item;
 
+import controller.GameSetting;
 import controller.managers.ControllerManager;
 
 import java.util.Random;
@@ -20,7 +21,7 @@ public class ItemManager extends ControllerManager {
     public void addItem() {
 
         Random ran = new Random();
-        int x = ran.nextInt(600) + 100;
+        int x = ran.nextInt(GameSetting.instance.getWidth() -200) + 100;
         int y = 0;
         int type = ran.nextInt(XX);
         switch (type) {

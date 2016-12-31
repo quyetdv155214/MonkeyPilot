@@ -1,8 +1,7 @@
 package controller.trap;
 
-import controller.Controller;
-import controller.GameSetting;
-import controller.GameVector;
+import controller.*;
+import controller.managers.BodyManager;
 import model.Model;
 import util.Utils;
 import view.Animation;
@@ -16,15 +15,34 @@ import java.util.Vector;
 /**
  * Created by quyet on 12/27/2016.
  */
-public class EnemyPlane extends Controller {
+public class EnemyPlane extends Controller implements Body {
     EnemyMoveBehavior enemyMoveBehavior;
-    public static final int WIDTH = 120;
+    public static final int WIDTH = 50;
     public static final int HEIGHT = 50;
+    public static final int a = 150;
+    public static final int b = 0;
+
+    public static int getA() {
+        return a;
+    }
+
+    public static int getB() {
+        return b;
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
 
     public EnemyPlane(Model model, View view, EnemyMoveBehavior enemyMoveBehavior) {
         super(model, view);
 //        moveVector = new GameVector(0,1);
         this.enemyMoveBehavior = enemyMoveBehavior;
+        BodyManager.instance.register(this);
     }
 
 
@@ -44,11 +62,11 @@ public class EnemyPlane extends Controller {
 
     public static EnemyPlane create(int x , int y){
         Vector<BufferedImage> images = new Vector<>();
-        images.add(Utils.loadImage("resources/plane.png"));
+        images.add(Utils.loadImage("resources/plane1.png"));
         EnemyPlane e  = new EnemyPlane(
                 new Model(x, y, WIDTH, HEIGHT),
                 new Animation(images),
-                new MoveFollowY()
+                new MoveStraight()
         );
         e.model.setMAX_TIME_LIVE(10);
         e.model.setLiveTime(10);
@@ -63,6 +81,13 @@ public class EnemyPlane extends Controller {
         int y = r.nextInt(GameSetting.instance.getHeight() - HEIGHT) +100;
         EnemyPlane enemyPlane = create(x, y);
         return enemyPlane;
+    }
 
+    @Override
+    public void onContact(Body other) {
+        if(other instanceof Planecontroller){
+            model.destroy();
+
+        }
     }
 }

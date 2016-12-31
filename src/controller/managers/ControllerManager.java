@@ -3,6 +3,12 @@ package controller.managers;
 import controller.BaseController;
 import controller.Controller;
 import controller.GameSetting;
+import controller.trap.EnemyPlane;
+import controller.trap.MoveStraight;
+import model.Model;
+import util.Utils;
+import view.SingleView;
+import view.View;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -14,7 +20,9 @@ import java.util.Vector;
 public class ControllerManager implements BaseController{
     public static Vector<Controller> controllers;
 
+
     public static final ControllerManager explosion = new ControllerManager();
+
 
 
     public ControllerManager() {

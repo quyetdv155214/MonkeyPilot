@@ -8,6 +8,7 @@ import controller.Starcontroller;
 import controller.item.ItemManager;
 import controller.managers.BodyManager;
 import controller.managers.ControllerManager;
+import controller.managers.EnemyPlaneManager;
 import controller.managers.MeteoManager;
 import model.BackGround;
 import util.Utils;
@@ -35,6 +36,7 @@ public class PlayGameScene extends GameScene {
         baseControllers.add(Planecontroller.instance);
         baseControllers.add(BodyManager.instance);
         baseControllers.add(new ItemManager());
+baseControllers.add(new EnemyPlaneManager());
 
         background = Utils.loadImage("resources/background1.png");
         bg1 = new BackGround(0, 0);

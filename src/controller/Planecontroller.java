@@ -5,6 +5,7 @@ import controller.item.ShieldItem;
 import controller.item.Time;
 import controller.managers.ControllerManager;
 import controller.managers.TrapManager;
+import controller.trap.EnemyPlane;
 import controller.trap.TrapController;
 import model.Model;
 import util.Utils;
@@ -161,6 +162,9 @@ public class Planecontroller extends Controller implements Body {
 
             if(!(numOfRocket >=5))
             numOfRocket ++;
+        }
+        if (other instanceof EnemyPlane){
+            this.model.icsGas(-15);
         }
 
     }
