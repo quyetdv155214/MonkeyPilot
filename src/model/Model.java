@@ -131,6 +131,12 @@ public class Model {
         ControllerManager.explosion.controllers.add(explosionController);
         Utils.playSound("resources/Explosion8.wav", false);
     }
+    public void destroy2(){
+        ExplosionController explosionController = new ExplosionController(new Model(this.x,this.y,this.width,this.height),
+                new Animation(Utils.loadSheet("resources/AnimatedExplosion_ME1.png",128,149,0,7,6)));
+        ControllerManager.explosion.controllers.add(explosionController);
+        Utils.playSound("resources/Explosion8.wav", false);
+    }
 
 
 

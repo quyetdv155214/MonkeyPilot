@@ -46,16 +46,32 @@ public class Utils {
         }
     }
 
-    public static Vector<BufferedImage> loadSheet(String URL, int width, int height,int border, int imageCount) {
+    public static Vector<BufferedImage> loadSheet(String URL, int width, int height,int border, int col) {
         BufferedImage image = Utils.loadImage(URL);
         Vector<BufferedImage> bufferedImages = new Vector<>();
-          for (int index = 0; index < imageCount; index++){
+          for (int index = 0; index < col; index++){
               int x = index * width + border * (index + 1);
               int y = border;
               BufferedImage subImage =  image.getSubimage(x, y, width, height);
               bufferedImages.add(subImage);
           }
           return bufferedImages;
+    }
+
+    public static Vector<BufferedImage> loadSheet(String URL, int width, int height,int border, int col, int row) {
+
+        BufferedImage image = Utils.loadImage(URL);
+        Vector<BufferedImage> bufferedImages = new Vector<>();
+        for (int i =0; i< row ; i ++ ) {
+            int y = border + height * i;
+            for (int index = 0; index < col; index++) {
+                int x = index * width + border * (index + 1);
+
+                BufferedImage subImage = image.getSubimage(x, y, width, height);
+                bufferedImages.add(subImage);
+            }
+        }
+        return bufferedImages;
     }
 
     public void rotate(int deg){

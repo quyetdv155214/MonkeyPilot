@@ -1,47 +1,37 @@
-import controller.BaseController;
 import controller.GameSetting;
-import controller.Planecontroller;
-import controller.Starcontroller;
-import controller.item.ItemManager;
-import controller.managers.BodyManager;
-import controller.managers.ControllerManager;
-import controller.managers.MeteoManager;
-import model.BackGround;
-import util.Utils;
+import controller.scenes.GameScene;
+import controller.scenes.MenuScene;
+import controller.scenes.SceneListener;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
-import java.util.Vector;
+import java.util.Stack;
 
 /**
  * Created by Dell on 17/12/2016.
  */
-public class Pilot extends Frame implements Runnable {
-    Image background;
-
+public class Pilot extends Frame implements Runnable, SceneListener {
     BufferedImage backbuffer;
-    private static BackGround bg1, bg2;
-    Vector<BaseController> baseControllers;
+    GameScene currenScene;
+    Stack<GameScene> gameSceneStack;
+
 
     public Pilot() {
-        baseControllers = new Vector<>();
-        baseControllers.add(new MeteoManager());
-        baseControllers.add(ControllerManager.explosion);
-        baseControllers.add(new ControllerManager());
-        baseControllers.add(Starcontroller.instance);
-        baseControllers.add(Planecontroller.instance);
-        baseControllers.add(BodyManager.instance);
-        baseControllers.add(new ItemManager());
-        setVisible(true);
         setSize(GameSetting.instance.getWidth(), GameSetting.instance.getHeight());
-        ///background
-        background = Utils.loadImage("resources/background1.png");
-        bg1 = new BackGround(0, 0);
-        bg2 = new BackGround(2300, 0);
+        setVisible(true);
+        gameSceneStack = new Stack<>();
 
 
-        backbuffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+        this.replaceScene(
+                new MenuScene(),
+                false
+        );
+
+        backbuffer = new BufferedImage(GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), BufferedImage.TYPE_INT_ARGB);
         addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -85,14 +75,14 @@ public class Pilot extends Frame implements Runnable {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    Planecontroller.instance.setN(1);
-                }
+//                System.out.println("keyPressed");
+                currenScene.keyPressed(e);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                Planecontroller.instance.setN(0);
+//                System.out.println("keyReleased");
+                currenScene.keyReleased(e);
             }
         });
     }
@@ -101,29 +91,21 @@ public class Pilot extends Frame implements Runnable {
 
     }
 
+    public void replaceScene(GameScene newScene, boolean addToBackStack) {
+        if (addToBackStack && currenScene != null) {
+            gameSceneStack.add(currenScene);
+
+        }
+        currenScene = newScene;
+        currenScene.setSceneListener(this);
+
+    }
 
     public void update(Graphics g) {
         Graphics bbg = backbuffer.getGraphics();
-        bbg.drawImage(background, bg1.getBgX(), bg1.getBgY(), 2300, 600, null);
-        bbg.drawImage(background, bg2.getBgX(), bg2.getBgY(), 2300, 600, null);
+        currenScene.update(bbg);
 
-        if (Planecontroller.instance.getModel().isAlive()) {
-            for (BaseController b : this.baseControllers) {
-                b.draw(bbg);
-            }
-            Font font = new Font("Bauhaus 93", Font.BOLD, 20);
-            bbg.setFont(font);
-            bbg.drawString("HP : " + Planecontroller.instance.getModel().getHp(), 100, 100);
-            bbg.drawString("Score : " + Planecontroller.instance.getScore(), 100, 120);
-            Planecontroller.instance.getModel().drawHealthBar(bbg, 100, 140);
-        } else {
-            bbg.drawImage(Utils.loadImage("resources/gameOver.png"), 0, 0,
-                    GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
-
-        }
-
-
-        g.drawImage(backbuffer, 0, 0, 800, 600, null);
+        g.drawImage(backbuffer, 0, 0, GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
     }
 
     public void run() {
@@ -132,13 +114,7 @@ public class Pilot extends Frame implements Runnable {
                 Thread.sleep(10);
                 this.repaint();
 
-
-                for (BaseController b : baseControllers) {
-                    b.run();
-                }
-                //
-                bg1.update();
-                bg2.update();
+                currenScene.run();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

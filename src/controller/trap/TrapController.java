@@ -57,7 +57,7 @@ public class TrapController extends Controller implements Body {
             this.getModel().decHp(1);
             BodyManager.instance.remove(this);
 
-            this.model.destroy();
+            this.model.destroy2();
         }
     }
 }
