@@ -181,14 +181,24 @@ public class Model {
 
 
     public boolean checkout() {
-        if (x < 0 || x > GameSetting.instance.getWidth() - width) {
+        if (x <= 1|| x > GameSetting.instance.getWidth() - width-1) {
             return true;
-        } else if (y < 30 || y > GameSetting.instance.getHeight() - height)
+        } else if (y <= 31 || y > GameSetting.instance.getHeight() - height-1)
             return true;
         else return false;
     }
-
-
+    public void check(){
+        if (x<0){
+            x=1;
+        }
+        else if (x > GameSetting.instance.getWidth()-width){
+            x=GameSetting.instance.getWidth()-width-1;
+        }
+        if (y<30){
+            y=31;
+        }else if (y > GameSetting.instance.getHeight()-height)
+            y=GameSetting.instance.getHeight()-height-1;
+    }
 
     public boolean checkDead() {
         GameSetting g = GameSetting.instance;

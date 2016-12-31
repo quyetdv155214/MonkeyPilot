@@ -76,7 +76,7 @@ public class Planecontroller extends Controller implements Body {
     double y;
 
     public void run() {
-
+        this.getModel().check();
         if (this.getModel().isAlive()) {
             model.decGas();
             if (n == 1) {

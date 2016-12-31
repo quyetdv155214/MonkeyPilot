@@ -82,7 +82,7 @@ baseControllers.add(new EnemyPlaneManager());
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE ) {
             Planecontroller.instance.setN(1);
         }
     }
@@ -90,6 +90,5 @@ baseControllers.add(new EnemyPlaneManager());
     @Override
     public void keyReleased(KeyEvent e) {
         Planecontroller.instance.setN(0);
-
     }
 }
