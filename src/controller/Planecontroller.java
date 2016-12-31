@@ -32,6 +32,9 @@ public class Planecontroller extends Controller implements Body {
     GameVector moveVector;
     public static final Planecontroller instance = creat(300,300);
 
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     private Planecontroller(Model model, View view) {
         super(model, view);

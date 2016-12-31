@@ -16,11 +16,13 @@ public class MenuScene extends GameScene {
     }
     @Override
     public void update(Graphics graphics) {
-        Font font = new Font("Bauhaus 93", Font.BOLD, 20);
+        Font font = new Font("Bauhaus 93", Font.BOLD, 50);
         graphics.setFont(font);
-        graphics.setColor(Color.pink);
+        graphics.setColor(Color.RED);
         graphics.drawImage(Utils.loadImage("resources/GameStart.png"),0,0, GameSetting.instance.getWidth(),GameSetting.instance.getHeight(),null);
-        graphics.drawString("Press any key to play " , 300, 300);
+        graphics.drawString("Máy Bay Bà Già" , 200, 200);
+        graphics.drawString("Press any key to play " , 130, 350);
+
     }
 
     @Override
@@ -32,7 +34,7 @@ public class MenuScene extends GameScene {
     public void keyPressed(KeyEvent e) {
         this.sceneListener.replaceScene(
                 new PlayGameScene(),
-                false
+                true
 
         );
     }

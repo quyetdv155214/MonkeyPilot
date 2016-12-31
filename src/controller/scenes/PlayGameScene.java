@@ -51,7 +51,7 @@ baseControllers.add(new EnemyPlaneManager());
         bbg.drawImage(background, bg1.getBgX(), bg1.getBgY(), 2300, GameSetting.instance.getHeight(), null);
         bbg.drawImage(background, bg2.getBgX(), bg2.getBgY(), 2300, GameSetting.instance.getHeight(), null);
 
-        if (Planecontroller.instance.getModel().isAlive()) {
+            if (Planecontroller.instance.getModel().isAlive()) {
             for (BaseController b : this.baseControllers) {
                 b.draw(bbg);
             }
@@ -60,11 +60,12 @@ baseControllers.add(new EnemyPlaneManager());
             bbg.drawString("HP : " + Planecontroller.instance.getModel().getHp(), 100, 100);
             bbg.drawString("Score : " + Planecontroller.instance.getScore(), 100, 120);
             Planecontroller.instance.getModel().drawHealthBar(bbg, 100, 140);
-        } else {
-            bbg.drawImage(Utils.loadImage("resources/gameOver.png"), 0, 0,
-                    GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
-
         }
+//        else {
+//            bbg.drawImage(Utils.loadImage("resources/gameOver.png"), 0, 0,
+//                    GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
+//
+//        }
 
     }
 
@@ -77,6 +78,13 @@ baseControllers.add(new EnemyPlaneManager());
         //
         bg1.update();
         bg2.update();
+        if (!Planecontroller.instance.getModel().isAlive()){
+            this.sceneListener.replaceScene(
+                    new GameOverScene(),
+                    true
+
+            );
+        }
     }
 
 

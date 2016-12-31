@@ -93,12 +93,18 @@ public class Pilot extends Frame implements Runnable, SceneListener {
 
     public void replaceScene(GameScene newScene, boolean addToBackStack) {
         if (addToBackStack && currenScene != null) {
-            gameSceneStack.add(currenScene);
+            gameSceneStack.push(currenScene);
 
         }
         currenScene = newScene;
         currenScene.setSceneListener(this);
 
+    }
+
+    public void back(){
+        if (gameSceneStack.isEmpty()){
+            gameSceneStack.pop();
+        }
     }
 
     public void update(Graphics g) {

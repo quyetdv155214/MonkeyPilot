@@ -179,15 +179,11 @@ public class Model {
 
     }
 
-
     public boolean checkout() {
-        if (x <= 1 || x > GameSetting.instance.getWidth() - width - 1) {
-            liveTime--;
+        if (x <= 1|| x > GameSetting.instance.getWidth() - width-1) {
             return true;
-        } else if (y <= 31 || y > GameSetting.instance.getHeight() - height - 1){
-            liveTime--;
-             return true;
-         }
+        } else if (y <= 31 || y > GameSetting.instance.getHeight() - height-1)
+            return true;
         else return false;
     }
     public void check(){
