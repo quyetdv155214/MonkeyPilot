@@ -147,7 +147,17 @@ public class Model {
         Utils.playSound("resources/Explosion8.wav", false);
     }
 
+    public double getMidX() {
+        return this.x + this.width / 2;
+    }
 
+    public double getMidY() {
+        return this.y + this.height / 2;
+    }
+
+    public double getBottom() {
+        return this.y + this.height;
+    }
 
     public int getMAX_TIME_LIVE() {
         return MAX_TIME_LIVE;

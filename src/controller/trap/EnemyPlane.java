@@ -1,6 +1,7 @@
 package controller.trap;
 
 import controller.*;
+import controller.item.FireCircle;
 import controller.managers.BodyManager;
 import model.Model;
 import util.Utils;
@@ -22,6 +23,8 @@ public class EnemyPlane extends Controller implements Body {
     public static final int HEIGHT = 50;
     public static final int a = 150;
     public static final int b = 0;
+    private ShootBehavior shootBehavior;
+    private int timeCounter =0 ;
 
     public static int getA() {
         return a;
@@ -39,15 +42,22 @@ public class EnemyPlane extends Controller implements Body {
         return HEIGHT;
     }
 
-    public EnemyPlane(Model model, View view, EnemyMoveBehavior enemyMoveBehavior, AttackBehavior attackBehavior) {
+    public EnemyPlane(Model model, View view, EnemyMoveBehavior enemyMoveBehavior, AttackBehavior attackBehavior,ShootBehavior shootBehavior) {
         super(model, view);
 //        moveVector = new GameVector(0,1);
         this.enemyMoveBehavior = enemyMoveBehavior;
         this.attackBehavior = attackBehavior;
         BodyManager.instance.register(this);
+        this.shootBehavior = shootBehavior;
     }
 
+    private void shoot() {
 
+        if (shootBehavior != null){
+
+            shootBehavior.doShot(this);
+        }
+    }
     @Override
     public void draw(Graphics g) {
         super.draw(g);
@@ -61,12 +71,17 @@ public class EnemyPlane extends Controller implements Body {
             enemyMoveBehavior.doMove(this);
         }
         if (attackBehavior instanceof  Explosion){
-            this.attackBehavior.doAttack(this.getModel());
+            this.attackBehavior.doAttack(this);
 //            this.model.destroy();
+        }
+        timeCounter++;
+        if (timeCounter > 300) {
+            shoot();
+            timeCounter = 0;
         }
     }
 
-    public static EnemyPlane create(int x , int y,EnemyType enemyType ){
+    public static EnemyPlane create(int x , int y, EnemyType enemyType ){
 
         Vector<BufferedImage> images = new Vector<>();
         EnemyPlane e;
@@ -77,8 +92,10 @@ public class EnemyPlane extends Controller implements Body {
                         new Model(x, y, WIDTH, HEIGHT),
                         new Animation(images),
                         new MoveStraight(),
-                        new GasDec()
+                        new GasDec(),
+                         null
                 );
+
                 return e;
             case LIFEDEC:
                 images.add(Utils.loadImage("resources/31013559_Fighter_Plane.png"));
@@ -86,7 +103,8 @@ public class EnemyPlane extends Controller implements Body {
                         new Model(x, y, WIDTH * 2, HEIGHT),
                         new Animation(images),
                         new MoveInLine(),
-                        new LifeDec()
+                        new LifeDec(),
+                         new ShootOnTargetBehavior()
                 );
                 return e;
             case EXPLOSION:
@@ -95,7 +113,8 @@ public class EnemyPlane extends Controller implements Body {
                         new Model(x, y, WIDTH , HEIGHT),
                         new Animation(images),
                         new MoveStraight(),
-                        new Explosion()
+                        new Explosion(),
+                        null
                 );
                 return e;
         }
@@ -117,9 +136,12 @@ public class EnemyPlane extends Controller implements Body {
 
     @Override
     public void onContact(Body other) {
-        if(other instanceof Planecontroller){
-           this.attackBehavior.doAttack(this.getModel());
-           this.model.destroy();
+        if (other instanceof FireCircle) {
+            this.getModel().destroy();
         }
+        if(other instanceof Planecontroller){
+           this.attackBehavior.doAttack(this);
+        }
+
     }
 }

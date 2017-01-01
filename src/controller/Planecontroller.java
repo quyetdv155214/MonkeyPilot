@@ -1,6 +1,7 @@
 package controller;
 
 import controller.item.BulletItem;
+import controller.item.FireCircle;
 import controller.item.ShieldItem;
 import controller.item.Time;
 import controller.managers.ControllerManager;
@@ -44,7 +45,7 @@ public class Planecontroller extends Controller implements Body {
         model.setAlive(true);
         model.setX(300);
         model.setY(300);
-        model.setHp(30);
+        model.setHp(3);
         model.setLiveTime(100);
         setScore(0);
         BodyManager.instance.removeAll();
@@ -182,8 +183,9 @@ public class Planecontroller extends Controller implements Body {
         }
         if (other instanceof ShieldItem) {
 
-            if (!(numOfShield >= 3))
-                numOfShield++;
+            FireCircle.instance.getModel().setAlive(true);
+            FireCircle.instance.getModel().setLiveTime(5);
+
 
         }
         if (other instanceof BulletItem) {
@@ -192,9 +194,7 @@ public class Planecontroller extends Controller implements Body {
             if (!(numOfRocket >= 5))
                 numOfRocket++;
         }
-        if (other instanceof EnemyPlane) {
 
-        }
 
     }
 }

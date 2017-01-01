@@ -1,5 +1,6 @@
 package controller.trap;
 
+import controller.Controller;
 import controller.Planecontroller;
 import model.Model;
 
@@ -10,8 +11,9 @@ public class GasDec implements AttackBehavior {
 
 
     @Override
-    public void doAttack(Object o) {
-
+    public void doAttack(Controller controller) {
         Planecontroller.instance.getModel().icsGas(-15);
+        Model m =controller.getModel();
+        m.destroy();
     }
 }

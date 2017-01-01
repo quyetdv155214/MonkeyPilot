@@ -1,5 +1,6 @@
 package controller;
 
+import controller.item.FireCircle;
 import controller.managers.BodyManager;
 import model.Model;
 import util.Utils;
@@ -35,6 +36,10 @@ public class Meteo extends Controller implements Body {
     }
     @Override
     public void onContact(Body other) {
+        if (other instanceof FireCircle)
+        {
+            model.destroy();
+        }
         if (other instanceof Planecontroller){
 
 //            BodyManager.instance.remove(this);

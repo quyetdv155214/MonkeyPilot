@@ -38,7 +38,7 @@ public class ControllerManager implements BaseController {
     public static int slow = 0;
 
     public void run() {
-        if (slowTime ==100 ){
+        if (slowTime == 100 ){
             slow = 0;
             count=0;
             slowTime =0;
@@ -48,12 +48,12 @@ public class ControllerManager implements BaseController {
                 controllers.get(i).run();
             }
             count = 0;
+            if (slow > 0)
             slowTime++;
         }
         if (count < slow) {
             count++;
         }
-        System.out.println(count);
 
 
         Iterator<Controller> iterator = this.controllers.iterator();

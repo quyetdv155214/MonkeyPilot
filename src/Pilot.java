@@ -135,6 +135,9 @@ public class Pilot extends Frame implements Runnable, SceneListener {
             currenScene.update(bbg);
 
         g.drawImage(backbuffer, 0, 0, GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
+        g.setColor(Color.RED);
+        g.drawString((1000/ sleepTime) + " FPS" , GameSetting.instance.getWidth() - 100, 60 );
+
     }
 
     public void run() {

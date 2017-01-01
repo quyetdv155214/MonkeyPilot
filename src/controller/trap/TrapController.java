@@ -4,6 +4,7 @@ import controller.Body;
 import controller.Controller;
 import controller.GameSetting;
 import controller.Planecontroller;
+import controller.item.FireCircle;
 import controller.managers.BodyManager;
 import controller.managers.TrapManager;
 import model.Model;
@@ -56,6 +57,10 @@ public class TrapController extends Controller implements Body {
         if (other instanceof Planecontroller) {
 
             this.model.destroy2();
+        }
+        if (other instanceof FireCircle)
+        {
+            this.getModel().destroy();
         }
     }
 }

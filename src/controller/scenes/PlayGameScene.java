@@ -5,6 +5,7 @@ import controller.BaseController;
 import controller.GameSetting;
 import controller.Planecontroller;
 import controller.Starcontroller;
+import controller.item.FireCircle;
 import controller.item.ItemManager;
 import controller.managers.BodyManager;
 import controller.managers.ControllerManager;
@@ -38,6 +39,7 @@ public class PlayGameScene extends GameScene {
         baseControllers.add(BodyManager.instance);
         baseControllers.add(new ItemManager());
         baseControllers.add(new EnemyPlaneManager());
+        baseControllers.add(FireCircle.instance);
 
         background = Utils.loadImage("resources/background1.png");
         bg1 = new BackGround(0, 0);
@@ -58,6 +60,7 @@ public class PlayGameScene extends GameScene {
             Font font = new Font("Bauhaus 93", Font.BOLD, 30);
             bbg.setFont(font);
             bbg.setColor(Color.RED);
+
             bbg.drawString("HP : " + Planecontroller.instance.getModel().getHp(), 100, 100);
             bbg.drawString("Score : " + Planecontroller.instance.getScore(), 100, 130);
             Planecontroller.instance.getModel().drawHealthBar(bbg, 100, 160);
