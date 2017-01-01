@@ -1,9 +1,11 @@
+import controller.Controller;
 import controller.GameSetting;
 import controller.Planecontroller;
 import controller.scenes.GameScene;
 import controller.scenes.MenuScene;
 import controller.scenes.PlayGameScene;
 import controller.scenes.SceneListener;
+import util.Utils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -20,14 +22,13 @@ public class Pilot extends Frame implements Runnable, SceneListener {
     BufferedImage backbuffer;
     GameScene currenScene;
     Stack<GameScene> gameSceneStack;
-    public static boolean running = true;
     int sleepTime = 17;
 
     public Pilot() {
         setSize(GameSetting.instance.getWidth(), GameSetting.instance.getHeight());
         setVisible(true);
         gameSceneStack = new Stack<>();
-
+        Utils.playSound2("resources/BoomOnline-Dangcapnhat_8t5h.wav",true);
 
         this.replaceScene(
                 new MenuScene(),
@@ -80,14 +81,16 @@ public class Pilot extends Frame implements Runnable, SceneListener {
             public void keyPressed(KeyEvent e) {
 //                System.out.println("keyPressed");
                 currenScene.keyPressed(e);
-                if (e.getKeyCode() == KeyEvent.VK_P){
-                    if (running)
-                        running =false;
-                    else running=true;
+                if (e.getKeyCode() == KeyEvent.VK_P) {
+                    if (GameScene.running)
+                        GameScene.running = false;
+                    else GameScene.running = true;
+                    if (!GameScene.running) Utils.clip.stop();
+                    else if (Controller.sound) Utils.clip.start();
                 }else
                 if (e.getKeyCode() == KeyEvent.VK_UP){
                     if (sleepTime > 2)
-                    sleepTime --;
+                        sleepTime --;
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
@@ -131,7 +134,7 @@ public class Pilot extends Frame implements Runnable, SceneListener {
 
     public void update(Graphics g) {
         Graphics bbg = backbuffer.getGraphics();
-        if (running)
+        if (GameScene.running)
             currenScene.update(bbg);
 
         g.drawImage(backbuffer, 0, 0, GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
@@ -139,13 +142,13 @@ public class Pilot extends Frame implements Runnable, SceneListener {
         g.drawString((1000/ sleepTime) + " FPS" , GameSetting.instance.getWidth() - 100, 60 );
 
     }
-
     public void run() {
         while (true) {
             try {
+
                 Thread.sleep(sleepTime);
                 this.repaint();
-                if (running)
+                if (GameScene.running)
                     currenScene.run();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -153,6 +156,5 @@ public class Pilot extends Frame implements Runnable, SceneListener {
         }
 
     }
-
 
 }

@@ -37,6 +37,7 @@ public class HelpPlaneItem extends Controller implements Body{
     public void onContact(Body other) {
         if (other instanceof Planecontroller || other instanceof Helper) {
             this.getModel().setAlive(false);
+            Controller.playsound("resources/Anqua.wav",false,Controller.sound);
         }
     }
 }

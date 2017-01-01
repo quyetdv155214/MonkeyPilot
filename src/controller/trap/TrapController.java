@@ -55,6 +55,8 @@ public class TrapController extends Controller implements Body {
 
     @Override
     public void onContact(Body other) {
+        if (other instanceof Planecontroller)
+            Controller.playsound("resources/Vacham.wav",false,Controller.sound);
         if (other instanceof FireCircle || other instanceof Helper) {
             this.getModel().destroy();
         }

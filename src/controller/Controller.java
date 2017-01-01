@@ -1,6 +1,7 @@
 package controller;
 
 import model.Model;
+import util.Utils;
 import view.View;
 
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.awt.*;
 public class Controller implements BaseController{
     protected Model model;
     protected View view;
-
+    public static boolean sound = true;
     public Controller(Model model, View view) {
         this.model = model;
         this.view = view;
@@ -23,6 +24,11 @@ public class Controller implements BaseController{
     public void run(){
 
     }
+    public static void playsound(String path,boolean repeat,boolean sound){
+        if (sound)
+            Utils.playSound(path,repeat);
+    }
+
 
     public Model getModel() {
         return model;

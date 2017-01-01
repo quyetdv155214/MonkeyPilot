@@ -66,6 +66,7 @@ public class BulletItem extends Controller implements Body{
         if (other instanceof Planecontroller)
         {
             this.getModel().setAlive(false);
+            Controller.playsound("resources/Anqua.wav",false,Controller.sound);
         }
     }
 }

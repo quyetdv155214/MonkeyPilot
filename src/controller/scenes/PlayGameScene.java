@@ -1,10 +1,7 @@
 package controller.scenes;
 
 
-import controller.BaseController;
-import controller.GameSetting;
-import controller.Planecontroller;
-import controller.Starcontroller;
+import controller.*;
 import controller.item.FireCircle;
 import controller.item.Helper;
 import controller.item.ItemManager;
@@ -93,10 +90,19 @@ public class PlayGameScene extends GameScene {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             Planecontroller.instance.setN(1);
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_P){
+        }else if (e.getKeyCode() == KeyEvent.VK_S){
+            if (!Controller.sound) {
+                if (GameScene.running){
+                    Controller.sound = true;
+                    Utils.clip.start();
+                }
 
-
+            }
+            else {
+                if (GameScene.running)
+                Controller.sound = false;
+                Utils.clip.stop();
+            }
         }
     }
 

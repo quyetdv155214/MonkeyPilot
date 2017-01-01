@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
  * Created by quyet on 12/28/2016.
  */
 public abstract class GameScene {
+    public  static boolean running = true;
     protected SceneListener sceneListener;
     public void setSceneListener(SceneListener sceneListener) {
         this.sceneListener = sceneListener;

@@ -45,6 +45,7 @@ public class IceItem extends Controller implements Body {
             ControllerManager.instance.slow =5;
             System.out.println("aaaaaaaaaa");
             this.getModel().setAlive(false);
+            Controller.playsound("resources/Anqua.wav",false,Controller.sound);
         }
     }
 }

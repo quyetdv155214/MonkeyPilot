@@ -178,6 +178,7 @@ public class Planecontroller extends Controller implements Body {
     public void onContact(Body other) {
         if (other instanceof Starcontroller) {
             icsScore();
+            this.playsound("resources/Pickup_Coin13.wav", false,Controller.sound);
         }
         if (other instanceof Meteo) {
             model.decHp(1);

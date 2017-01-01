@@ -13,7 +13,7 @@ public class LifeDec implements AttackBehavior {
     public void doAttack(Controller controller) {
         Planecontroller.instance.getModel().decHp(1);
         Planecontroller.instance.getMoveVector().reverse();
-
+        Controller.playsound("resources/Vacham.wav",false,Controller.sound);
         BodyManager.instance.remove((Body)controller);
     }
 }
