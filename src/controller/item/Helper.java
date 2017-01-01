@@ -66,15 +66,19 @@ public class Helper extends Controller implements Body {
     public void onContact(Body other) {
         if (other instanceof Starcontroller)
         {
+            System.out.println("star");
+
             Controller.playsound("resources/Anqua.wav",false,Controller.sound);
             Planecontroller.instance.icsScore();
         }
         if (other instanceof Meteo) {
             Planecontroller.instance.getModel().decHp(1);
+
             Controller.playsound("resources/Vacham.wav",false,Controller.sound);
         }
         if (other instanceof TrapController) {
             Planecontroller.instance.getModel().decHp(1);
+            System.out.println("trap");
             Controller.playsound("resources/Vacham.wav",false,Controller.sound);
         }
         if (other instanceof Time) {

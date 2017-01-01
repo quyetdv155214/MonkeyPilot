@@ -44,6 +44,7 @@ public class Planecontroller extends Controller implements Body {
         Utils.playSound("resources/Pickup_Coin13.wav", false);
         trapManager.create();
 
+
     }
     public void reset() {
         model.setAlive(true);
@@ -178,7 +179,6 @@ public class Planecontroller extends Controller implements Body {
     public void onContact(Body other) {
         if (other instanceof Starcontroller) {
             icsScore();
-            this.playsound("resources/Pickup_Coin13.wav", false,Controller.sound);
         }
         if (other instanceof Meteo) {
             model.decHp(1);

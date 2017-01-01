@@ -1,5 +1,6 @@
 package controller;
 
+import controller.item.Helper;
 import controller.managers.BodyManager;
 import controller.trap.TrapController;
 import model.Model;
@@ -66,9 +67,10 @@ public class Starcontroller extends Controller implements Body {
 
     @Override
     public void onContact(Body other) {
-        if (other instanceof Planecontroller) {
-            this.getModel().setX(1000);
-            this.getModel().setY(1000);
+        if (other instanceof Planecontroller || other instanceof Helper) {
+            this.getModel().setX(10000);
+            this.getModel().setY(10000);
+
             Starcontroller.instance.setAliveDiamon(false);
 
         }
