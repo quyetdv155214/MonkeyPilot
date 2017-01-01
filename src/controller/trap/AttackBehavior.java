@@ -8,4 +8,5 @@ import model.Model;
  */
 public interface AttackBehavior {
     void doAttack( Controller controller);
+
 }

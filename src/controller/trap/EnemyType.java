@@ -6,5 +6,6 @@ package controller.trap;
 public enum EnemyType {
     GASDEC,
     LIFEDEC,
-    EXPLOSION
+    EXPLOSION,
+    TRAPSTUN
 }

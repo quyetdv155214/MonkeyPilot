@@ -117,6 +117,17 @@ public class EnemyPlane extends Controller implements Body {
                         null
                 );
                 return e;
+            case TRAPSTUN:
+                images.add(Utils.loadImage("resources/spiderweb.png"));
+                e  = new EnemyPlane(
+                        new Model(x, y, WIDTH , HEIGHT),
+                        new Animation(images),
+                        null,
+                        new TRAPSTUN(),
+                        null
+                );
+                return e;
+
         }
 
 
@@ -142,6 +153,7 @@ public class EnemyPlane extends Controller implements Body {
         if(other instanceof Planecontroller){
            this.attackBehavior.doAttack(this);
         }
+
 
     }
 }

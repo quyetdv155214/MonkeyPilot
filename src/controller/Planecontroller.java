@@ -33,6 +33,7 @@ public class Planecontroller extends Controller implements Body {
     TrapManager trapManager = new TrapManager();
     GameVector moveVector;
     public static final Planecontroller instance = creat(300, 300);
+    private boolean move=true;
 
     private Planecontroller(Model model, View view) {
         super(model, view);
@@ -93,44 +94,51 @@ public class Planecontroller extends Controller implements Body {
     private int n = 0;
     double x;
     double y;
+    int timeStun =0;
 
     public void run() {
-        this.getModel().check();
+        if(move){
+            this.getModel().check();
 
-        if (this.getModel().isAlive()) {
-            model.decGas();
-            if (n == 1) {
-                deg += 2;
-                double raDeg = Math.toRadians(deg);
-                moveVector.dx = speed * Math.sin(raDeg);
-                moveVector.dy = speed * Math.cos(raDeg);
-                if (deg == 360) {
-                    deg = -1;
+            if (this.getModel().isAlive()) {
+                model.decGas();
+                if (n == 1) {
+                    deg += 2;
+                    double raDeg = Math.toRadians(deg);
+                    moveVector.dx = speed * Math.sin(raDeg);
+                    moveVector.dy = speed * Math.cos(raDeg);
+                    if (deg == 360) {
+                        deg = -1;
+                    }
+                    if (this.model.checkout()) {
+                        moveVector.reverse();
+
+                    }
+                    this.model.move(moveVector);
+                } else {
+                    if (this.model.checkout()) {
+                        moveVector.reverse();
+                    }
+
+                    this.model.move(moveVector);
                 }
-                if (this.model.checkout()) {
-                    moveVector.reverse();
-//                    deg += 180;
-//                     raDeg = Math.toRadians(deg);
-//
-//                    x = speed * Math.sin(raDeg);
-//                    y = speed * Math.cos(raDeg);
-                }
-                this.model.move(moveVector);
-            } else {
-                if (this.model.checkout()) {
-                    moveVector.reverse();
+            }
 
+        }
+        else {
+            timeStun ++;
+            if (timeStun == 100)
+            {
+                move =true;
+                timeStun =0;
 
-//                    deg += 180;
-//                    double raDeg = Math.toRadians(deg);
-//
-//                    x = speed * Math.sin(raDeg);
-//                    y = speed * Math.cos(raDeg);
-                }
-
-                this.model.move(moveVector);
             }
         }
+
+    }
+
+    public void setMove(boolean move) {
+        this.move = move;
     }
 
     public void setScore(int score) {

@@ -20,7 +20,7 @@ public class EnemyPlaneManager extends  ControllerManager {
         int x = ran.nextInt(GameSetting.instance.getWidth()-200) + 100;
         int y = 0;
         if (timecount == 200) {
-            int i = ran.nextInt(3);
+            int i = ran.nextInt(4);
             switch (i)
             {
                 case 0:
@@ -41,6 +41,9 @@ public class EnemyPlaneManager extends  ControllerManager {
 //                    x= 300;
                     controllers.add(EnemyPlane.create(x,y, EnemyType.EXPLOSION));
                     break;
+                case 3:
+                    y = ran.nextInt(GameSetting.instance.getHeight()-200) + 100;
+                    controllers.add(EnemyPlane.create(x,y,EnemyType.TRAPSTUN));
             }
             timecount = 0;
 
