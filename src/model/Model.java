@@ -221,7 +221,8 @@ public class Model {
 
     public boolean checkDead() {
         GameSetting g = GameSetting.instance;
-        if (!isAlive || x > g.getWidth() || y > g.getHeight() || x < 0 || y < 0) {
+        if (!isAlive || x > g.getWidth() || y > g.getHeight()
+                || x < 0 || y < 0) {
             return true;
         } else return false;
 

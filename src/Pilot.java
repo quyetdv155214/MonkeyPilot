@@ -5,14 +5,16 @@ import controller.scenes.GameScene;
 import controller.scenes.MenuScene;
 import controller.scenes.PlayGameScene;
 import controller.scenes.SceneListener;
+import util.IO;
 import util.Utils;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.Clip;
+import java.applet.AudioClip;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.Stack;
 
 /**
@@ -22,9 +24,9 @@ public class Pilot extends Frame implements Runnable, SceneListener {
     BufferedImage backbuffer;
     GameScene currenScene;
     Stack<GameScene> gameSceneStack;
-    int sleepTime = 17;
+    boolean stop = false;
 
-    public Pilot() {
+    public Pilot() throws IOException {
         setSize(GameSetting.instance.getWidth(), GameSetting.instance.getHeight());
         setVisible(true);
         gameSceneStack = new Stack<>();
@@ -44,6 +46,7 @@ public class Pilot extends Frame implements Runnable, SceneListener {
 
             @Override
             public void windowClosing(WindowEvent e) {
+//                IO.saveGame();
                 System.exit(0);
             }
 
@@ -89,12 +92,12 @@ public class Pilot extends Frame implements Runnable, SceneListener {
                     else if (Controller.sound) Utils.clip.start();
                 }else
                 if (e.getKeyCode() == KeyEvent.VK_UP){
-                    if (sleepTime > 2)
-                        sleepTime --;
+                    if (GameSetting.sleepTime > 2)
+                        GameSetting.sleepTime --;
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
-                    sleepTime++;
+                    GameSetting.sleepTime++;
                 }
                 else if
                         (e.getKeyCode() == KeyEvent.VK_R)
@@ -139,14 +142,16 @@ public class Pilot extends Frame implements Runnable, SceneListener {
 
         g.drawImage(backbuffer, 0, 0, GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
         g.setColor(Color.RED);
-        g.drawString((1000/ sleepTime) + " FPS" , GameSetting.instance.getWidth() - 100, 60 );
+        g.drawString((1000/ GameSetting.sleepTime) + " FPS" , GameSetting.instance.getWidth() - 100, 60 );
 
     }
+
+
     public void run() {
         while (true) {
             try {
 
-                Thread.sleep(sleepTime);
+                Thread.sleep(GameSetting.sleepTime);
                 this.repaint();
                 if (GameScene.running)
                     currenScene.run();

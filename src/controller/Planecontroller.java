@@ -35,24 +35,18 @@ public class Planecontroller extends Controller implements Body {
     private Planecontroller(Model model, View view) {
         super(model, view);
         moveVector = new GameVector(speed, 0);
-        model.setHp(3);
+//        model.setHp(3);
         BodyManager.instance.register(this);
+        model.setX(GameSetting.playerStartX);
+        model.setY(GameSetting.playerStartY);
+        model.setHp(GameSetting.playerStartHP);
+        model.setLiveTime(GameSetting.playerStartLifeTime);
+        setScore(GameSetting.playerStartScore);
     }
 
-    public void icsScore(){
-        score++;
-        Utils.playSound("resources/Pickup_Coin13.wav", false);
-        trapManager.create();
-
-
-    }
     public void reset() {
         model.setAlive(true);
-        model.setX(300);
-        model.setY(300);
-        model.setHp(3);
-        model.setLiveTime(100);
-        setScore(0);
+
         BodyManager.instance.removeAll();
         for (int i = 0; i < ControllerManager.controllers.size(); i++) {
             ControllerManager.controllers.get(i).getModel().setAlive(false);
@@ -63,8 +57,6 @@ public class Planecontroller extends Controller implements Body {
         BodyManager.instance.register(this);
         BodyManager.instance.register(Starcontroller.instance);
         setMoveVector(new GameVector(speed, 0));
-        Helper.instance.getModel().setAlive(false);
-
     }
 
 
@@ -175,6 +167,13 @@ public class Planecontroller extends Controller implements Body {
         this.numOfRocket = numOfRocket;
     }
 
+    public void icsScore(){
+        score++;
+        Utils.playSound("resources/Pickup_Coin13.wav", false);
+        trapManager.create();
+
+
+    }
     @Override
     public void onContact(Body other) {
         if (other instanceof Starcontroller) {

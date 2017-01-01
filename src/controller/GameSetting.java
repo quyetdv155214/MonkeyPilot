@@ -12,6 +12,14 @@ public class GameSetting {
     public static  final int HEALTH_BAR_WIDTH = 100;
     public static  final int HEALTH_BAR_HEIGHT = 20;
 
+    public static int sleepTime = 17;
+    public static int playerStartX = 300;
+    public static int playerStartY = 300;
+    public static int playerStartHP = 300;
+    public static int playerStartScore = 300;
+    public static int playerStartLifeTime = 300;
+
+
     public static final GameSetting instance = new GameSetting(800, 600);
 
     private GameSetting(int width, int height) {
@@ -42,4 +50,6 @@ public class GameSetting {
     public boolean isInScreen(Controller controller) {
         return controller.getModel().getY() < this.height;
     }
+
+
 }
