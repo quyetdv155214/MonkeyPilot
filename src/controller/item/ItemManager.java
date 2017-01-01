@@ -11,7 +11,7 @@ import java.util.Random;
 public class ItemManager extends ControllerManager {
 
 
-    public static final int XX = 1000;
+    public static final int XX = 1200;
     @Override
     public void run() {
         super.run();
@@ -36,6 +36,9 @@ public class ItemManager extends ControllerManager {
                 break;
             case 4:
                 controllers.add(IceItem.creat(x,y));
+                break;
+            case 5 :
+                controllers.add(HelpPlaneItem.creat(x, y));
                 break;
             default:
                 return;

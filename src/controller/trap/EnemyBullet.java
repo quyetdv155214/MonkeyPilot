@@ -47,7 +47,7 @@ public class EnemyBullet extends Controller implements Body{
         if (other instanceof FireCircle)
         {
             this.getModel().destroy();
-            System.out.println(this.getModel().isAlive());
+//            System.out.println(this.getModel().isAlive());
         }
         if (other instanceof Planecontroller) {
             this.model.destroy();

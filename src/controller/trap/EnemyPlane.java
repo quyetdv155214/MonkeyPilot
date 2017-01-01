@@ -2,6 +2,7 @@ package controller.trap;
 
 import controller.*;
 import controller.item.FireCircle;
+import controller.item.Helper;
 import controller.managers.BodyManager;
 import model.Model;
 import util.Utils;
@@ -147,9 +148,10 @@ public class EnemyPlane extends Controller implements Body {
 
     @Override
     public void onContact(Body other) {
-        if (other instanceof FireCircle) {
+        if (other instanceof FireCircle || other instanceof Helper) {
             this.getModel().destroy();
         }
+
         if(other instanceof Planecontroller){
            this.attackBehavior.doAttack(this);
         }

@@ -5,6 +5,7 @@ import controller.Controller;
 import controller.GameSetting;
 import controller.Planecontroller;
 import controller.item.FireCircle;
+import controller.item.Helper;
 import controller.managers.BodyManager;
 import controller.managers.TrapManager;
 import model.Model;
@@ -54,9 +55,8 @@ public class TrapController extends Controller implements Body {
 
     @Override
     public void onContact(Body other) {
-        if (other instanceof Planecontroller) {
-
-            this.model.destroy2();
+        if (other instanceof FireCircle || other instanceof Helper) {
+            this.getModel().destroy();
         }
         if (other instanceof FireCircle)
         {

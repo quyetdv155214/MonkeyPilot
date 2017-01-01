@@ -6,6 +6,7 @@ import controller.GameSetting;
 import controller.Planecontroller;
 import controller.Starcontroller;
 import controller.item.FireCircle;
+import controller.item.Helper;
 import controller.item.ItemManager;
 import controller.managers.BodyManager;
 import controller.managers.ControllerManager;
@@ -40,6 +41,7 @@ public class PlayGameScene extends GameScene {
         baseControllers.add(new ItemManager());
         baseControllers.add(new EnemyPlaneManager());
         baseControllers.add(FireCircle.instance);
+        baseControllers.add(Helper.instance);
 
         background = Utils.loadImage("resources/background1.png");
         bg1 = new BackGround(0, 0);

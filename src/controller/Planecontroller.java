@@ -1,9 +1,6 @@
 package controller;
 
-import controller.item.BulletItem;
-import controller.item.FireCircle;
-import controller.item.ShieldItem;
-import controller.item.Time;
+import controller.item.*;
 import controller.managers.ControllerManager;
 import controller.managers.TrapManager;
 import controller.trap.EnemyPlane;
@@ -42,6 +39,12 @@ public class Planecontroller extends Controller implements Body {
         BodyManager.instance.register(this);
     }
 
+    public void icsScore(){
+        score++;
+        Utils.playSound("resources/Pickup_Coin13.wav", false);
+        trapManager.create();
+
+    }
     public void reset() {
         model.setAlive(true);
         model.setX(300);
@@ -59,6 +62,8 @@ public class Planecontroller extends Controller implements Body {
         BodyManager.instance.register(this);
         BodyManager.instance.register(Starcontroller.instance);
         setMoveVector(new GameVector(speed, 0));
+        Helper.instance.getModel().setAlive(false);
+
     }
 
 
@@ -172,11 +177,7 @@ public class Planecontroller extends Controller implements Body {
     @Override
     public void onContact(Body other) {
         if (other instanceof Starcontroller) {
-            score++;
-//            ControllerManager.controllers.add(TrapController.create());
-            Utils.playSound("resources/Pickup_Coin13.wav", false);
-
-            trapManager.create();
+            icsScore();
         }
         if (other instanceof Meteo) {
             model.decHp(1);
@@ -201,6 +202,14 @@ public class Planecontroller extends Controller implements Body {
 
             if (!(numOfRocket >= 5))
                 numOfRocket++;
+        }
+        if (other instanceof HelpPlaneItem){
+
+            Helper.instance.getModel().setAlive(true);
+            Helper.instance.getModel().setLiveTime(10);
+            BodyManager.instance.register(Helper.instance);
+
+
         }
 
 
