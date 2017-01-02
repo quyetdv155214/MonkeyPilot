@@ -30,7 +30,7 @@ public class Pilot extends Frame implements Runnable, SceneListener {
         setSize(GameSetting.WIDTH, GameSetting.HEIGHT);
         setVisible(true);
         gameSceneStack = new Stack<>();
-        Utils.playSound2("resources/sound/play/BoomOnline-Dangcapnhat_8t5h.wav",true);
+        Utils.playSound2("resources/sound/play/music.wav",true);
 
         this.replaceScene(
                 new MenuScene(),
