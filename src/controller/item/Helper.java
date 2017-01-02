@@ -6,7 +6,6 @@ import controller.trap.TrapController;
 import model.Model;
 import util.Utils;
 import view.Animation;
-import view.SingleView;
 import view.View;
 
 import java.awt.*;
@@ -47,8 +46,8 @@ public class Helper extends Controller implements Body {
 
     private static Helper create() {
         Vector<BufferedImage> images = new Vector<>();
-        images.add(Utils.loadImage("resources/heli1.png"));
-        images.add(Utils.loadImage("resources/heli2.png"));
+        images.add(Utils.loadImage("resources/character/heli1.png"));
+        images.add(Utils.loadImage("resources/character/heli2.png"));
 
         Helper f = new Helper(
                 new Model(Planecontroller.instance.getModel().getX() + Planecontroller.instance.getModel().getWidth()
@@ -64,31 +63,31 @@ public class Helper extends Controller implements Body {
 
     @Override
     public void onContact(Body other) {
-        if (other instanceof Starcontroller)
+        if (other instanceof StarController)
         {
             System.out.println("star");
 
-            Controller.playsound("resources/Anqua.wav",false,Controller.sound);
+            Controller.playsound("resources/sound/play/Anqua.wav",false,Controller.sound);
             Planecontroller.instance.icsScore();
         }
         if (other instanceof Meteo) {
             Planecontroller.instance.getModel().decHp(1);
 
-            Controller.playsound("resources/Vacham.wav",false,Controller.sound);
+            Controller.playsound("resources/sound/play/Vacham.wav",false,Controller.sound);
         }
         if (other instanceof TrapController) {
             Planecontroller.instance.getModel().decHp(1);
             System.out.println("trap");
-            Controller.playsound("resources/Vacham.wav",false,Controller.sound);
+            Controller.playsound("resources/sound/play/Vacham.wav",false,Controller.sound);
         }
-        if (other instanceof Time) {
+        if (other instanceof Gas) {
             Planecontroller.instance.getModel().icsGas(15);
-            Controller.playsound("resources/Anqua.wav",false,Controller.sound);
+            Controller.playsound("resources/sound/play/Anqua.wav",false,Controller.sound);
         }
         if (other instanceof ShieldItem) {
-            Controller.playsound("resources/Anqua.wav",false,Controller.sound);
-            FireCircle.instance.getModel().setAlive(true);
-            FireCircle.instance.getModel().setLiveTime(5);
+            Controller.playsound("resources/sound/play/Anqua.wav",false,Controller.sound);
+            Shiled.instance.getModel().setAlive(true);
+            Shiled.instance.getModel().setLiveTime(5);
 
 
         }

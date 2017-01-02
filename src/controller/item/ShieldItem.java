@@ -42,7 +42,7 @@ public class ShieldItem extends Controller implements Body {
 
     public static ShieldItem create(int x, int y) {
         Vector<BufferedImage> images = new Vector<>();
-        images.add(Utils.loadImage("resources/Captain_America_Shield_edit.png"));
+        images.add(Utils.loadImage("resources/item/Captain_America_Shield_edit.png"));
         //
         ShieldItem s = new ShieldItem(
                 new Model(x, y, WIDTH, HEIGHT),
@@ -54,7 +54,7 @@ public class ShieldItem extends Controller implements Body {
     public void onContact(Body other) {
         if (other instanceof Planecontroller || other instanceof Helper) {
             this.getModel().setAlive(false);
-            Controller.playsound("resources/Anqua.wav",false,Controller.sound);
+            Controller.playsound("resources/sound/play/Anqua.wav",false,Controller.sound);
         }
     }
 }

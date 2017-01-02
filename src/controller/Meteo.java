@@ -1,6 +1,6 @@
 package controller;
 
-import controller.item.FireCircle;
+import controller.item.Shiled;
 import controller.item.Helper;
 import controller.managers.BodyManager;
 import model.Model;
@@ -8,8 +8,6 @@ import util.Utils;
 import view.SingleView;
 import view.View;
 
-import javax.rmi.CORBA.Util;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
@@ -28,16 +26,16 @@ public class Meteo extends Controller implements Body {
     public static Meteo creat(){
         Random ran = new Random();
         int y =0;
-        int x = ran.nextInt(GameSetting.instance.getWidth() -200) + 100;
+        int x = ran.nextInt(GameSetting.WIDTH -200) + 100;
         Meteo meteo = new Meteo(
                 new Model(x,y,62,48),
-                new SingleView(Utils.loadImage("resources/PTS da XOng.png"))
+                new SingleView(Utils.loadImage("resources/enemy/PTS da XOng.png"))
         );
         return meteo;
     }
     @Override
     public void onContact(Body other) {
-        if (other instanceof FireCircle || other instanceof Helper)
+        if (other instanceof Shiled || other instanceof Helper)
         {
             model.destroy();
         }

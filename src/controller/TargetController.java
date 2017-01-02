@@ -26,15 +26,14 @@ public class TargetController extends Controller {
 
     public static TargetController create(int x, int y) {
         Vector<BufferedImage> images = new Vector<>();
-        images.add(Utils.loadImage("resources/target1.png"));
-        images.add(Utils.loadImage("resources/target2.png"));
-        images.add(Utils.loadImage("resources/target3.png"));
-        images.add(Utils.loadImage("resources/target4.png"));
+        images.add(Utils.loadImage("resources/enemy/target1.png"));
+        images.add(Utils.loadImage("resources/enemy/target2.png"));
+        images.add(Utils.loadImage("resources/enemy/target3.png"));
+        images.add(Utils.loadImage("resources/enemy/target4.png"));
 
-        //
         TargetController t = new TargetController(
                 new Model(x, y, WIDTH, HEIGHT),
-                new Animation(images, 10)
+                new Animation(images, 20)
         );
 
         return t;
@@ -43,8 +42,8 @@ public class TargetController extends Controller {
 
     public static TargetController create() {
         Random ran = new Random();
-        int x = ran.nextInt(GameSetting.instance.getWidth() - 200) + 100;
-        int y = ran.nextInt(GameSetting.instance.getHeight() - 200) + 100;
+        int x = ran.nextInt(GameSetting.WIDTH- 200) + 100;
+        int y = ran.nextInt(GameSetting.HEIGHT - 200) + 100;
 
         return create(x, y);
 

@@ -5,15 +5,18 @@ import controller.managers.BodyManager;
 import controller.trap.TrapController;
 import model.Model;
 import util.Utils;
+import view.Animation;
 import view.SingleView;
 import view.View;
 
+import java.awt.image.BufferedImage;
 import java.util.Random;
+import java.util.Vector;
 
 /**
  * Created by Dell on 17/12/2016.
  */
-public class Starcontroller extends Controller implements Body {
+public class StarController extends Controller implements Body {
 
     private static int count = 0;
     private boolean isAliveDiamon = true;
@@ -25,30 +28,37 @@ public class Starcontroller extends Controller implements Body {
     public void setAliveDiamon(boolean aliveDiamon) {
         isAliveDiamon = aliveDiamon;
     }
-    public Starcontroller(Model model, View view) {
+    public StarController(Model model, View view) {
         super(model, view);
         BodyManager.instance.register(this);
     }
 
-    public static Starcontroller instance = create(500, 400);
+    public static StarController instance = create(500, 400);
 
-    private static Starcontroller create(int x, int y) {
-        Starcontroller starcontroller = new Starcontroller(
+    private static StarController create(int x, int y) {
+        Vector<BufferedImage> images = new Vector<>();
+        images.add(Utils.loadImage("resources/star/star1.png"));
+        images.add(Utils.loadImage("resources/star/star2.png"));
+        images.add(Utils.loadImage("resources/star/star3.png"));
+        images.add(Utils.loadImage("resources/star/star4.png"));
+        images.add(Utils.loadImage("resources/star/star5.png"));
+        images.add(Utils.loadImage("resources/star/star6.png"));
+//        images.add(Utils.loadImage("resources/star/star.png"));
+        StarController starController = new StarController(
                 new Model(x, y, 50, 50),
-                new SingleView(Utils.loadImage("resources/diamond.png"))
-        );
-        return starcontroller;
+                new Animation(images,8));
+                return starController;
     }
 
     @Override
     public void run() {
         super.run();
-        if (!Starcontroller.instance.getAliveDiamon()){
+        if (!StarController.instance.getAliveDiamon()){
             count++;
             if (count > 400){
                 count = 0;
                 setNewLoc();
-                Starcontroller.instance.setAliveDiamon(true);
+                StarController.instance.setAliveDiamon(true);
                 BodyManager.instance.register(this);
             }
         }
@@ -57,8 +67,8 @@ public class Starcontroller extends Controller implements Body {
 
         Random ran = new Random();
 
-        int newX = ran.nextInt(GameSetting.instance.getWidth() - 200) + 100;
-        int newY = ran.nextInt(GameSetting.instance.getHeight() - 200) + 100;
+        int newX = ran.nextInt(GameSetting.WIDTH - 200) + 100;
+        int newY = ran.nextInt(GameSetting.HEIGHT - 200) + 100;
 
         this.getModel().setX(newX);
         this.getModel().setY(newY);
@@ -71,7 +81,7 @@ public class Starcontroller extends Controller implements Body {
             this.getModel().setX(10000);
             this.getModel().setY(10000);
 
-            Starcontroller.instance.setAliveDiamon(false);
+            StarController.instance.setAliveDiamon(false);
 
         }
         if (other instanceof TrapController) {

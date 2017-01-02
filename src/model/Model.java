@@ -134,12 +134,12 @@ public class Model {
 
     public void destroy() {
         ExplosionController explosionController = new ExplosionController(new Model(this.x, this.y, this.width, this.height),
-                new Animation(Utils.loadSheet("resources/explosion.png", 32, 32, 1, 6)));
+                new Animation(Utils.loadSheet("resources/enemy/explosion.png", 32, 32, 1, 6)));
         ControllerManager.explosion.controllers.add(explosionController);
 
         setAlive(false);
 
-        Utils.playSound("resources/Explosion8.wav", false);
+        Utils.playSound("resources/sound/play/Explosion8.wav", false);
     }
 //    public void destroy2(){
 //        ExplosionController explosionController = new ExplosionController(new Model(this.x,this.y,this.width,this.height),
@@ -198,30 +198,33 @@ public class Model {
 
 
     public boolean checkout() {
-        if (x <= 1 || x >= GameSetting.instance.getWidth() - width - 1) {
+        if (x <= 1 || x >= GameSetting.WIDTH - width - 1) {
             liveTime--;
+            Utils.playSound("resources/sound/play/wall.wav",false);
+//            System.out.println("cham");
             return true;
-        } else if (y <= 31 || y >= GameSetting.instance.getHeight() - height - 1) {
+        } else if (y <= 31 || y >= GameSetting.HEIGHT - height - 1) {
             liveTime--;
+            Utils.playSound("resources/sound/play/wall.wav",false);
             return true;
+
         } else return false;
     }
 
     public void check() {
         if (x <= 0) {
             x = 1;
-        } else if (x >= (GameSetting.instance.getWidth() - width)) {
-            x = GameSetting.instance.getWidth() - width - 1;
+        } else if (x >= (GameSetting.WIDTH - width)) {
+            x = GameSetting.WIDTH - width - 1;
         }
         if (y <= 30) {
             y = 31;
-        } else if (y >= GameSetting.instance.getHeight() - height)
-            y = GameSetting.instance.getHeight() - height - 1;
+        } else if (y >= GameSetting.HEIGHT - height)
+            y = GameSetting.HEIGHT- height - 1;
     }
 
     public boolean checkDead() {
-        GameSetting g = GameSetting.instance;
-        if (!isAlive || x > g.getWidth() || y > g.getHeight()
+        if (!isAlive || x > GameSetting.WIDTH || y > GameSetting.HEIGHT
                 || x < 0 || y < 0) {
             return true;
         } else return false;

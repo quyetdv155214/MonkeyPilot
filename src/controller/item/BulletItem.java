@@ -51,7 +51,7 @@ public class BulletItem extends Controller implements Body{
 
     public static BulletItem create(int x, int y) {
         Vector<BufferedImage> images = new Vector<>();
-        images.add(Utils.loadImage("resources/bulletList.png"));
+        images.add(Utils.loadImage("resources/item/bulletList.png"));
 
         BulletItem b = new BulletItem(
                 new Model(x, y, WIDTH, HEIGHT),
@@ -66,7 +66,7 @@ public class BulletItem extends Controller implements Body{
         if (other instanceof Planecontroller)
         {
             this.getModel().setAlive(false);
-            Controller.playsound("resources/Anqua.wav",false,Controller.sound);
+            Controller.playsound("resources/sound/play/Anqua.wav",false,Controller.sound);
         }
     }
 }

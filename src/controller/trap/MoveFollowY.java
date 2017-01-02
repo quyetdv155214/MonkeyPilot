@@ -14,7 +14,7 @@ public class MoveFollowY implements EnemyMoveBehavior {
     @Override
     public void doMove(EnemyPlane enemyPlane) {
 //        moveVector = enemyPlane.moveVector;
-        if (enemyPlane.getModel().getX() > GameSetting.instance.getWidth() -enemyPlane.getModel().getWidth()){
+        if (enemyPlane.getModel().getX() > GameSetting.WIDTH-enemyPlane.getModel().getWidth()){
             enemyPlane.getModel().move(moveVector);
         }
 

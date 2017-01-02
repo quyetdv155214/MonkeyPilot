@@ -1,7 +1,7 @@
 package controller.trap;
 
 import controller.*;
-import controller.item.FireCircle;
+import controller.item.Shiled;
 import controller.item.Helper;
 import controller.managers.BodyManager;
 import model.Model;
@@ -11,7 +11,6 @@ import view.View;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 import java.util.Vector;
 
 /**
@@ -88,7 +87,7 @@ public class EnemyPlane extends Controller implements Body {
         EnemyPlane e;
         switch (enemyType){
             case GASDEC:
-                images.add(Utils.loadImage("resources/plane1.png"));
+                images.add(Utils.loadImage("resources/enemy/plane1.png"));
                  e= new EnemyPlane(
                         new Model(x, y, WIDTH, HEIGHT),
                         new Animation(images),
@@ -99,7 +98,7 @@ public class EnemyPlane extends Controller implements Body {
 
                 return e;
             case LIFEDEC:
-                images.add(Utils.loadImage("resources/31013559_Fighter_Plane.png"));
+                images.add(Utils.loadImage("resources/enemy/31013559_Fighter_Plane.png"));
                e  = new EnemyPlane(
                         new Model(x, y, WIDTH * 2, HEIGHT),
                         new Animation(images),
@@ -109,7 +108,7 @@ public class EnemyPlane extends Controller implements Body {
                 );
                 return e;
             case EXPLOSION:
-                images.add(Utils.loadImage("resources/mine.png"));
+                images.add(Utils.loadImage("resources/enemy/mine.png"));
                 e  = new EnemyPlane(
                         new Model(x, y, WIDTH , HEIGHT),
                         new Animation(images),
@@ -119,7 +118,7 @@ public class EnemyPlane extends Controller implements Body {
                 );
                 return e;
             case TRAPSTUN:
-                images.add(Utils.loadImage("resources/spiderweb.png"));
+                images.add(Utils.loadImage("resources/enemy/spiderweb.png"));
                 e  = new EnemyPlane(
                         new Model(x, y, WIDTH , HEIGHT),
                         new Animation(images),
@@ -148,7 +147,7 @@ public class EnemyPlane extends Controller implements Body {
 
     @Override
     public void onContact(Body other) {
-        if (other instanceof FireCircle || other instanceof Helper) {
+        if (other instanceof Shiled || other instanceof Helper) {
             this.getModel().destroy();
         }
 

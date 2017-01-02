@@ -14,6 +14,7 @@ import java.util.Vector;
  * Created by apple on 12/7/16.
  */
 public class Utils {
+    public static Point point = new Point();
 
     public static BufferedImage loadImage(String path) {
         try {
@@ -53,6 +54,10 @@ public class Utils {
             e.printStackTrace();
         }
     }
+    public static void getLocation(int x, int y) {
+        point = new Point(x, y);
+    }
+
     public static Clip clip;
     public static void playSound2(String audioUrl, boolean repeat) {
 

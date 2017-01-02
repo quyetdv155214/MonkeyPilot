@@ -35,7 +35,7 @@ public class IceItem extends Controller implements Body {
     public static IceItem creat(int x,int y){
         return new IceItem(
                 new Model(x,y,WIDTH,HEIGHT),
-                new SingleView(Utils.loadImage("resources/ice.png"))
+                new SingleView(Utils.loadImage("resources/ice/ice.png"))
         );
     }
     @Override
@@ -43,9 +43,9 @@ public class IceItem extends Controller implements Body {
         if (other instanceof Planecontroller)
         {
             ControllerManager.instance.slow =5;
-            System.out.println("aaaaaaaaaa");
+//            System.out.println("aaaaaaaaaa");
             this.getModel().setAlive(false);
-            Controller.playsound("resources/Anqua.wav",false,Controller.sound);
+            Controller.playsound("resources/sound/play/Anqua.wav",false,Controller.sound);
         }
     }
 }

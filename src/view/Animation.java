@@ -25,9 +25,7 @@ public class Animation implements  View {
     private Vector<BufferedImage> images;
     private int delay;
     private int imageCount;
-
     private boolean animationReachEnd = false;
-
     public boolean isAnimationReachEnd() {
         return animationReachEnd;
     }

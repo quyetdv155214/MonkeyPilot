@@ -27,17 +27,39 @@ public class Pilot extends Frame implements Runnable, SceneListener {
     boolean stop = false;
 
     public Pilot() throws IOException {
-        setSize(GameSetting.instance.getWidth(), GameSetting.instance.getHeight());
+        setSize(GameSetting.WIDTH, GameSetting.HEIGHT);
         setVisible(true);
         gameSceneStack = new Stack<>();
-        Utils.playSound2("resources/BoomOnline-Dangcapnhat_8t5h.wav",true);
+        Utils.playSound2("resources/sound/play/BoomOnline-Dangcapnhat_8t5h.wav",true);
 
         this.replaceScene(
                 new MenuScene(),
                 false
         );
 
-        backbuffer = new BufferedImage(GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        backbuffer = new BufferedImage(GameSetting.WIDTH, GameSetting.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                currenScene.mouseClicked(e);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
         addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -116,6 +138,7 @@ public class Pilot extends Frame implements Runnable, SceneListener {
         setResizable(false);
     }
 
+
     private void init() {
 
     }
@@ -140,9 +163,9 @@ public class Pilot extends Frame implements Runnable, SceneListener {
         if (GameScene.running)
             currenScene.update(bbg);
 
-        g.drawImage(backbuffer, 0, 0, GameSetting.instance.getWidth(), GameSetting.instance.getHeight(), null);
+        g.drawImage(backbuffer, 0, 0, GameSetting.WIDTH, GameSetting.HEIGHT, null);
         g.setColor(Color.RED);
-        g.drawString((1000/ GameSetting.sleepTime) + " FPS" , GameSetting.instance.getWidth() - 100, 60 );
+        g.drawString((1000/ GameSetting.sleepTime) + " FPS" , GameSetting.WIDTH - 100, 60 );
 
     }
 
@@ -155,6 +178,11 @@ public class Pilot extends Frame implements Runnable, SceneListener {
                 this.repaint();
                 if (GameScene.running)
                     currenScene.run();
+                Point point = this.getLocation();
+
+                Utils.getLocation(MouseInfo.getPointerInfo().getLocation().x - (int) point.getX(),
+                        MouseInfo.getPointerInfo().getLocation().y - (int) point.getY());
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

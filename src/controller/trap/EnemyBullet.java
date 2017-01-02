@@ -4,7 +4,7 @@ import controller.Body;
 import controller.Controller;
 import controller.GameVector;
 import controller.Planecontroller;
-import controller.item.FireCircle;
+import controller.item.Shiled;
 import controller.managers.BodyManager;
 import model.Model;
 import util.Utils;
@@ -38,13 +38,13 @@ public class EnemyBullet extends Controller implements Body{
     public static EnemyBullet create(int x, int y, GameVector moveVector) {
         return new EnemyBullet(
                 new Model(x, y, WIDTH, HEIGHT),
-                new SingleView(Utils.loadImage("resources/bullet-round.png")),
+                new SingleView(Utils.loadImage("resources/enemy/bullet-round.png")),
                moveVector
         );
     }
     @Override
     public void onContact(Body other) {
-        if (other instanceof FireCircle)
+        if (other instanceof Shiled)
         {
             this.getModel().destroy();
 //            System.out.println(this.getModel().isAlive());

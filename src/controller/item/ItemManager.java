@@ -11,7 +11,7 @@ import java.util.Random;
 public class ItemManager extends ControllerManager {
 
 
-    public static final int XX = 1200;
+    public static final int XX = 1400;
     @Override
     public void run() {
         super.run();
@@ -21,7 +21,7 @@ public class ItemManager extends ControllerManager {
     public void addItem() {
 
         Random ran = new Random();
-        int x = ran.nextInt(GameSetting.instance.getWidth() -110) + 100;
+        int x = ran.nextInt(GameSetting.WIDTH -110) + 100;
         int y = 0;
         int type = ran.nextInt(XX);
         switch (type) {
@@ -29,7 +29,7 @@ public class ItemManager extends ControllerManager {
                 controllers.add(BulletItem.create(x, y));
                 break;
             case 2:
-                controllers.add(Time.create(x, y));
+                controllers.add(Gas.create(x, y));
                 break;
             case 3:
                 controllers.add(ShieldItem.create(x, y));
