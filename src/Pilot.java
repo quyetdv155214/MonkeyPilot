@@ -27,6 +27,8 @@ public class Pilot extends Frame implements Runnable, SceneListener {
     boolean stop = false;
 
     public Pilot() throws IOException {
+        setTitle("Máy bay bà già _ team 3.");
+
         setSize(GameSetting.WIDTH, GameSetting.HEIGHT);
         setVisible(true);
         gameSceneStack = new Stack<>();

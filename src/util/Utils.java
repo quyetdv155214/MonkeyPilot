@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,6 +21,7 @@ public class Utils {
         try {
             BufferedImage image = ImageIO.read(new File(path));
             return image;
+//            ImageIcon i =new ImageIcon(this.getClass().getResource("/images/xxx.jpg"))
         } catch (IOException e) {
             e.printStackTrace();
             return null;
