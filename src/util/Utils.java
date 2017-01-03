@@ -70,11 +70,6 @@ public class Utils {
             clip.open(audioIn);
             clip.start();
 
-//            clip.stop();
-//            long microsecondPosition = clip.getMicrosecondPosition();
-//            clip.setMicrosecondPosition(microsecondPosition);
-//            clip.start();
-//            clip.loop(100);
 
             if (repeat) {
                 clip.loop(Clip.LOOP_CONTINUOUSLY);

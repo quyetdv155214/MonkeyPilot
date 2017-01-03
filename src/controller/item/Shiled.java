@@ -68,8 +68,6 @@ public class Shiled extends Controller implements Body {
 
     @Override
     public void onContact(Body other) {
-        if (other instanceof Planecontroller || other instanceof Helper) {
-            this.getModel().setAlive(false);
-        }
+
     }
 }

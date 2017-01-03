@@ -31,6 +31,7 @@ public class Pilot extends Frame implements Runnable, SceneListener {
 
         setSize(GameSetting.WIDTH, GameSetting.HEIGHT);
         setVisible(true);
+        setLocationRelativeTo(null);
         gameSceneStack = new Stack<>();
         Utils.playSound2("resources/sound/play/music.wav",true);
 

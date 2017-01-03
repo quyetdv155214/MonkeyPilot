@@ -2,6 +2,7 @@ package controller;
 
 import controller.item.Helper;
 import controller.managers.BodyManager;
+import controller.trap.EnemyPlane;
 import controller.trap.TrapController;
 import model.Model;
 import util.Utils;
@@ -80,11 +81,10 @@ public class StarController extends Controller implements Body {
         if (other instanceof Planecontroller || other instanceof Helper) {
             this.getModel().setX(10000);
             this.getModel().setY(10000);
-
             StarController.instance.setAliveDiamon(false);
 
         }
-        if (other instanceof TrapController) {
+        if (other instanceof TrapController || other instanceof EnemyPlane) {
             setNewLoc();
         }
     }

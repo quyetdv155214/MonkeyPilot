@@ -28,6 +28,9 @@ public class PlayGameScene extends GameScene {
     private static BackGround bg1, bg2;
     Vector<BaseController> baseControllers;
     private BufferedImage tip;
+    private BufferedImage HUD;
+
+
 
     public PlayGameScene() {
         baseControllers = new Vector<>();
@@ -47,7 +50,7 @@ public class PlayGameScene extends GameScene {
         bg2 = new BackGround(2300, 0);
 //        tip = Utils.loadImage("resources/background/background/background1.png");
 
-
+        HUD = Utils.loadImage("resources/HUD.png");
 
     }
 
@@ -60,14 +63,18 @@ public class PlayGameScene extends GameScene {
             for (BaseController b : this.baseControllers) {
                 b.draw(bbg);
             }
-            Font font = new Font("Bauhaus 93", Font.BOLD, 25);
+            Font font = new Font("Bauhaus 93", Font.BOLD, 16);
             bbg.setFont(font);
             bbg.setColor(Color.RED);
 
-            bbg.drawString("HP : " + Planecontroller.instance.getModel().getHp(), 100, 100);
-            bbg.drawString("Score : " + Planecontroller.instance.getScore(), 100, 130);
-            Planecontroller.instance.getModel().drawHealthBar(bbg, 100, 160);
-            bbg.drawImage(tip, 0, 0, GameSetting.WIDTH, GameSetting.HEIGHT, null);
+            bbg.drawImage(HUD, 0, 50, (int)(73 * 1.5) ,  (int) (66*1.5), null);
+            bbg.drawString(Planecontroller.instance.getModel().getHp() +" / 10", 35, 70);
+            bbg.drawString("" + Planecontroller.instance.getScore(), 40, 105);
+            bbg.drawString(Planecontroller.instance.getModel().getLiveTime() + "%", 40, 140);
+//            Planecontroller.instance.getModel().drawHealthBar(bbg, 100, 160);
+
+
+//            bbg.drawImage(tip, 0, 0, GameSetting.WIDTH, GameSetting.HEIGHT, null);
         }
 
 
