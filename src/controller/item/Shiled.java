@@ -61,7 +61,7 @@ public class Shiled extends Controller implements Body {
                         , Planecontroller.instance.getModel().getY() - Planecontroller.instance.getModel().getHeight(),
                         120, 120),
                 new Animation(images));
-        f.getModel().setLiveTime(10);
+        f.getModel().setLiveTime(7);
         return f;
     }
 

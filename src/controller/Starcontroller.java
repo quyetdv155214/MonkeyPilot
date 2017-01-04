@@ -7,7 +7,6 @@ import controller.trap.TrapController;
 import model.Model;
 import util.Utils;
 import view.Animation;
-import view.SingleView;
 import view.View;
 
 import java.awt.image.BufferedImage;
@@ -15,7 +14,7 @@ import java.util.Random;
 import java.util.Vector;
 
 /**
- * Created by Dell on 17/12/2016.
+ * Created by quyet on 1/4/2017.
  */
 public class StarController extends Controller implements Body {
 
@@ -48,7 +47,7 @@ public class StarController extends Controller implements Body {
         StarController starController = new StarController(
                 new Model(x, y, 50, 50),
                 new Animation(images,8));
-                return starController;
+        return starController;
     }
 
     @Override

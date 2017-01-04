@@ -57,6 +57,8 @@ public class Planecontroller extends Controller implements Body {
         model.setHp(GameSetting.playerStartHP);
         model.setLiveTime(GameSetting.playerStartLifeTime);
         setScore(0);
+        Helper.instance.getModel().setAlive(false);
+        Shiled.instance.getModel().setAlive(false);
         BodyManager.instance.removeAll();
         for (int i = 0; i < ControllerManager.controllers.size(); i++) {
             ControllerManager.controllers.get(i).getModel().setAlive(false);
@@ -197,7 +199,7 @@ public class Planecontroller extends Controller implements Body {
         if (other instanceof ShieldItem) {
 
             Shiled.instance.getModel().setAlive(true);
-            Shiled.instance.getModel().setLiveTime(5);
+//            Shiled.instance.getModel().setLiveTime(5);
 
 
         }
